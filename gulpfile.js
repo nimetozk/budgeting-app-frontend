@@ -37,7 +37,6 @@ gulp.task("licenses", async function () {
 
 * Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
 * Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
 * Coded by Creative Tim
 
 =========================================================

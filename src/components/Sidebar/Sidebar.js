@@ -20,8 +20,9 @@ import { useLocation, NavLink } from "react-router-dom";
 
 import { Nav } from "react-bootstrap";
 
+import logo from "assets/img/reactlogo.png";
 
-function Sidebar({ color, image}) {
+function Sidebar({ color, image, routes }) {
   const location = useLocation();
   const activeRoute = (routeName) => {
     return location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -48,19 +49,27 @@ function Sidebar({ color, image}) {
             </div>
           </a>
           <a className="simple-text" href="http://www.creative-tim.com">
-            Creative Tim
+            Money
           </a>
         </div>
-      {/**
-       * 
         <Nav>
-        
-
+          {routes.map((prop, key) => {
+            if (!prop.redirect)
+              return (
+                <li className={activeRoute(prop.layout + prop.path)} key={key}>
+                  <NavLink
+                    to={prop.layout + prop.path}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    <i className={prop.icon} />
+                    <p>{prop.name}</p>
+                  </NavLink>
+                </li>
+              );
+            return null;
+          })}
         </Nav>
-       * 
-       * 
-      */}
-       
       </div>
     </div>
   );
