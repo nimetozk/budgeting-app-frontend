@@ -1,0 +1,122 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.all-content {
+  display: flex;
+}
+
+.sidenav {
+  height: 100%;
+  max-width: 480px;
+  width: 480px;
+  background-color: #000;
+  overflow-x: hidden;
+  padding-top: 20px;
+  position: fixed;
+  z-index: 1;
+}
+
+.sideText {
+  max-width: 480px;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 0px;
+  margin-top: 0%;
+  height: 720px;
+  color: #fff;
+  background-color: black;
+}
+
+.registerImage {
+  opacity: 0.4;
+}
+
+.left-content {
+  display: flex;
+  width: 1200px;
+  height: 720px;
+  display: flex;
+  flex-direction: column;
+}
+.main-head {
+  height: 150px;
+  background: #fff;
+}
+
+.main {
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 540px;
+  /* margin-right: 30%;
+  margin-left: 40%;*/
+  margin-top: 8%;
+}
+.main-title h1 {
+  text-align: center;
+}
+
+.main-title {
+  margin-bottom: 8%;
+}
+
+/* .form-control {
+  width: 250px;
+} */
+
+.btn-black {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000 !important;
+  color: #fff;
+  width: 100%;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.reg-button {
+  margin-top: 44px;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo {
+  padding-top: 10px;
+  padding-right: 20px;
+}
+
+.top-bar-login {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+  justify-content: flex-end;
+}
+
+.btn-login {
+  margin-top: 15px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  border: none;
+  background-color: #000 !important;
+  color: #fff;
+}
+
+.loginLabel {
+  padding: 15px 0px 15px 15px;
+  margin-top: 10px;
+  font-weight: bold;
+}
