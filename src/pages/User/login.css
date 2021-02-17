@@ -8,20 +8,31 @@ body {
 
 .sidenav {
   height: 100%;
+  max-width: 480px;
+  width: 480px;
   background-color: #000;
   overflow-x: hidden;
   padding-top: 20px;
-  width: 40%;
   position: fixed;
   z-index: 1;
 }
 
 .sideText {
+  max-width: 480px;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 0px;
   margin-top: 0%;
-  padding: 200px;
   height: 720px;
   color: #fff;
   background-color: black;
+}
+
+.loginImage {
+  opacity: 0.4;
 }
 
 .right-content {
@@ -62,6 +73,16 @@ body {
 }
 
 .top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo {
+  padding-top: 10px;
+}
+
+.top-bar-reg {
   display: flex;
   flex-direction: row;
   height: 70px;
