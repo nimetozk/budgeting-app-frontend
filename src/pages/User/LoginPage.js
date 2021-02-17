@@ -1,48 +1,67 @@
 import React from "react";
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import serviceProvider from "../../services/service";
+import { to } from "await-to-js";
+import loginImage from "./login.jpg";
+import logo from "./logo.png";
+import "./login.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleLogin = async () => {
-    const instance = axios.create({ baseURL: "https://localhost:4000" });
-    const response = await instance.post("/api/auth/signin", {
-      email: email,
-      password: password,
-    });
-
-    console.log("response :", response.data);
+    const [err, response] = await to(serviceProvider.signin(email, password));
+    localStorage.setItem("token", response.data.token);
+    history.push("/dashboard");
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    event.preventDefault();
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    event.preventDefault();
   };
 
   console.log("email", email);
   return (
     <div className="all-content">
       <div className="sideNav">
-        <div className="sideText"></div>
+        <div className="sideText">
+          <img
+            className="loginImage"
+            src={loginImage}
+            alt="this is the login image"
+          />
+        </div>
       </div>
 
       <div className="right-content">
         <div className="top-bar">
-          <label class="createAccountLabel">Don't have an account? </label>
-          <button type="submit" class="btn btn-reg">
-            Register
-          </button>
+          <div className="top-bar-logo">
+            <img className="logo" src={logo} alt="this is the login image" />
+          </div>
+          <div className="top-bar-reg">
+            <label class="createAccountLabel">Don't have an account? </label>
+            <Link to="/register">
+              <button class="btn btn-reg" type="button">
+                Register
+              </button>
+            </Link>
+          </div>
         </div>
 
         <div className="main">
           <form>
             <div className="main-title">
-              <h1>Welsome to East Budget!</h1>
+              <h1>Welsome to Easy Money!</h1>
             </div>
             <div className="form-group">
               <label>Email Address</label>
@@ -50,7 +69,7 @@ const LoginPage = () => {
                 value={email}
                 type="text"
                 class="form-control"
-                placeholder="Email Address"
+                placeholder="Your Email Address"
                 onChange={handleEmailChange}
               ></input>
             </div>
@@ -60,19 +79,18 @@ const LoginPage = () => {
                 value={password}
                 type="password"
                 class="form-control"
-                placeholder="Password"
+                placeholder="********"
                 onChange={handlePasswordChange}
               ></input>
             </div>
             <div className="login-button">
-              <button class="btn btn-black" onClick={handleLogin}>
-                Login
+              <button class="btn btn-black" type="button" onClick={handleLogin}>
+                Sign In
               </button>
             </div>
           </form>
         </div>
       </div>
-      {/* <LoginPage email={email} password={password}></LoginPage> */}
     </div>
   );
 };
