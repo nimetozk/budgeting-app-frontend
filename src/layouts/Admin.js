@@ -22,6 +22,7 @@ import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
+import TaskPage from "../pages/Task/TaskPage";
 
 import routes from "routes.js";
 
@@ -38,7 +39,8 @@ function Admin() {
       if (prop.layout === "/admin") {
         return (
           <Route
-            path={prop.layout + prop.path}
+            exact
+            path={prop.path}
             render={(props) => <prop.component {...props} />}
             key={key}
           />
@@ -68,7 +70,12 @@ function Admin() {
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
           <div className="content">
-            <Switch>{getRoutes(routes)}</Switch>
+            <Switch>
+              {getRoutes(routes)}
+              <Route exact path="/tasks/formStatus/:formStatus/id/:id">
+                <TaskPage></TaskPage>
+              </Route>
+            </Switch>
           </div>
           <Footer />
         </div>

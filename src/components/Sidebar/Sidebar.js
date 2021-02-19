@@ -58,7 +58,7 @@ function Sidebar({ color, image, routes }) {
               return (
                 <li className={activeRoute(prop.layout + prop.path)} key={key}>
                   <NavLink
-                    to={prop.layout + prop.path}
+                    to={prop.path}
                     className="nav-link"
                     activeClassName="active"
                   >

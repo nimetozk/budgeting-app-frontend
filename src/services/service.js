@@ -18,6 +18,12 @@ class Service {
       phoneNumber,
     });
   }
+
+  getTaskList() {
+    return httpClient.get("/api/task/list", {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
 }
 
 export default new Service();
