@@ -18,6 +18,7 @@
 import Dashboard from "views/Dashboard.js";
 import UserProfile from "views/UserProfile.js";
 import TaskListPage from "pages/Task/TasksListPage";
+import TaskPage from "pages/Task/TaskPage";
 
 const dashboardRoutes = [
   {
