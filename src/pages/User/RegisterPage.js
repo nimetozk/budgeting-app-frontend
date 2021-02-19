@@ -8,6 +8,7 @@ import { to } from "await-to-js";
 import registerImage from "./register.jpg";
 import logo from "./logo.png";
 import "./register.css";
+import validator from "validator";
 
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");
@@ -16,6 +17,8 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+
+  const [emailError, setEmailError] = useState("");
 
   const handleRegister = async () => {
     const [err, response] = await to(
@@ -31,28 +34,33 @@ const RegisterPage = () => {
     history.push("/dashboard");
   };
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-    event.preventDefault();
+  const handleEmailOnBlur = (event) => {
+    const ok = validator.isEmail(event.target.value);
+    if (!ok) setEmailError("Email is invalid !");
+    else setEmailError("");
   };
 
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-    event.preventDefault();
-  };
+  const handleTextChange = (event) => {
+    switch (event.target.name) {
+      case "password":
+        setPassword(event.target.value);
+        break;
+      case "phoneNumber":
+        setPhoneNumber(event.target.value);
+        break;
+      case "email":
+        setEmail(event.target.value);
+        break;
+      case "lastname":
+        setLastName(event.target.value);
+        break;
+      case "firstname":
+        setFirstName(event.target.value);
+        break;
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    event.preventDefault();
-  };
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-    event.preventDefault();
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    event.preventDefault();
+      default:
+        break;
+    }
   };
 
   console.log("email", email);
@@ -85,31 +93,38 @@ const RegisterPage = () => {
                   <label>First Name</label>
                   <input
                     value={firstname}
+                    name="firstname"
                     type="text"
                     class="form-control"
                     placeholder="Your First Name"
-                    onChange={handleFirstNameChange}
+                    onChange={handleTextChange}
                   ></input>
                 </div>{" "}
                 <div className="form-group">
                   <label>Last Name</label>
                   <input
                     value={lastname}
+                    name="lastname"
                     type="text"
                     class="form-control"
                     placeholder="Your Last Name"
-                    onChange={handleLastNameChange}
+                    onChange={handleTextChange}
                   ></input>
                 </div>{" "}
                 <div className="form-group">
                   <label>Email Address</label>
                   <input
                     value={email}
+                    name="email"
                     type="text"
                     class="form-control"
                     placeholder="Your Email Address"
-                    onChange={handleEmailChange}
+                    onChange={handleTextChange}
+                    onBlur={handleEmailOnBlur}
                   ></input>
+                  {emailError && (
+                    <label style={{ color: "red" }}>{emailError}</label>
+                  )}
                 </div>
               </div>
               <div>
@@ -117,20 +132,22 @@ const RegisterPage = () => {
                   <label>Phone Number</label>
                   <input
                     value={phoneNumber}
+                    name="phoneNumber"
                     type="text"
                     class="form-control"
                     placeholder="Your Phone Number"
-                    onChange={handlePhoneNumberChange}
+                    onChange={handleTextChange}
                   ></input>
                 </div>
                 <div className="form-group">
                   <label>Password</label>
                   <input
                     value={password}
+                    name="password"
                     type="password"
                     class="form-control"
                     placeholder="********"
-                    onChange={handlePasswordChange}
+                    onChange={handleTextChange}
                   ></input>
                 </div>
                 <div className="reg-button">
