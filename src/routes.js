@@ -16,9 +16,9 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import UserProfile from "views/UserProfile.js";
+import UserProfile from "./pages/User/UserPages/UserProfile";
 import TaskListPage from "pages/Task/TasksListPage";
-import TaskPage from "pages/Task/TaskPage";
+import BankListPage from "pages/Bank/BankListPage";
 
 const dashboardRoutes = [
   {
@@ -40,6 +40,13 @@ const dashboardRoutes = [
     name: "Tasks",
     icon: "nc-icon nc-notes",
     component: TaskListPage,
+    layout: "/admin",
+  },
+  {
+    path: "/banks",
+    name: "Banks",
+    icon: "nc-icon nc-notes",
+    component: BankListPage,
     layout: "/admin",
   },
 ];

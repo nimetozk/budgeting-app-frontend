@@ -25,6 +25,7 @@ const TaskListPage = () => {
 
   const handleTaskEdit = (taskId) => {
     history.replace("/tasks/formStatus/edit/id/" + taskId);
+    // console.log("edit clik");
   };
 
   return (
@@ -61,7 +62,7 @@ const TaskListPage = () => {
                 <td>{task.name}</td>
                 <td>{task.status}</td>
                 <td>{task.uploadDate}</td>
-                <td>{task.refBankAccount.bankName}</td>
+                <td>{task.refBankAccount.refBank.name}</td>
                 <td>{task.refBankAccount.accountNo}</td>
                 <td>{task.refBankAccount.sortCode}</td>
                 <td
