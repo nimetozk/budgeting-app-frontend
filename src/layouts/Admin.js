@@ -24,6 +24,8 @@ import Sidebar from "components/Sidebar/Sidebar";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import TaskPage from "../pages/Task/TaskPage";
 
+import BankPage from "../pages/Bank/BankPage";
+
 import routes from "routes.js";
 
 import sidebarImage from "assets/img/sidebar-3.jpg";
@@ -74,6 +76,9 @@ function Admin() {
               {getRoutes(routes)}
               <Route exact path="/tasks/formStatus/:formStatus/id/:id">
                 <TaskPage></TaskPage>
+              </Route>
+              <Route exact path="/banks/formStatus/:formStatus/id/:id">
+                <BankPage></BankPage>
               </Route>
             </Switch>
           </div>
