@@ -27,8 +27,8 @@ import "./assets/css/demo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import AdminLayout from "layouts/Admin.js";
-import LoginPage from "pages/User/LoginPage";
-import RegisterPage from "pages/User/RegisterPage";
+import LoginPage from "pages/User/Login/LoginPage";
+import RegisterPage from "pages/User/Register/RegisterPage";
 
 ReactDOM.render(
   <BrowserRouter>
