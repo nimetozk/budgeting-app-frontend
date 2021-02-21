@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import serviceProvider from "../../services/service";
+import serviceProvider from "../../../services/service";
 import { to } from "await-to-js";
 import loginImage from "./login.jpg";
 import logo from "./logo.png";
