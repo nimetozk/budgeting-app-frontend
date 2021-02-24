@@ -52,13 +52,13 @@ const BankPage = () => {
                 <Form.Group>
                   <label>Bank Name:</label>
                   <Form.Control
+                    style={{ marginBottom: "10px" }}
                     value={entity.name}
                     onChange={handleChange}
                     placeholder="LLoyds Sutton"
                     type="text"
                   ></Form.Control>
-                  <Button onClick={handleSave}>Save</Button>
-                  <SelectBank />
+                  <Button onClick={handleSave}>Add Bank</Button>
                 </Form.Group>
               </Col>
             </Row>
