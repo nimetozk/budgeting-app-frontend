@@ -99,6 +99,12 @@ class Service {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
+
+  getTransactionsByTaskId(taskId) {
+    return httpClient.get(`/api/transaction/task/${taskId}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
 }
 
 export default new Service();
