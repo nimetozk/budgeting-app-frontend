@@ -20,7 +20,7 @@ class Service {
   }
 
   getTaskList() {
-    return httpClient.get("/api/task/list", {
+    return httpClient.get("/api/task", {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
@@ -69,6 +69,33 @@ class Service {
 
   getCurrentUserBankAccounts() {
     return httpClient.get("/api/bankaccount/useraccounts", {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  getCurrentUserBankAccountsByBank(bankId) {
+    return httpClient.get(
+      `/api/bankaccount/getcurrentuserbankaccounts/${bankId}`,
+      {
+        headers: { Authorization: localStorage.getItem("token") },
+      }
+    );
+  }
+
+  insertTask(task) {
+    return httpClient.post(`/api/task`, task, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  updateTask(task) {
+    return httpClient.put(`/api/task`, task, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  getTaskById(taskId) {
+    return httpClient.get(`/api/task/${taskId}`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
