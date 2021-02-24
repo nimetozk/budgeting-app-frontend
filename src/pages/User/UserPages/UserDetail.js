@@ -62,11 +62,11 @@ const UserDetail = () => {
             <Card.Body>
               <Form>
                 <Row>
-                  <Col className="pr-1" md="6">
+                  <Col className="pl" md="6">
                     <Form.Group>
                       <label>FirstName</label>
                       <Form.Control
-                        placeholder="FirstName"
+                        placeholder="First Name"
                         type="text"
                         name="firstname"
                         value={entity.firstname}
@@ -74,7 +74,7 @@ const UserDetail = () => {
                       ></Form.Control>
                     </Form.Group>
                   </Col>
-                  <Col className="pl-1" md="6">
+                  <Col className="pl" md="6">
                     <Form.Group>
                       <label>Last Name</label>
                       <Form.Control
@@ -86,6 +86,8 @@ const UserDetail = () => {
                       ></Form.Control>
                     </Form.Group>
                   </Col>
+                </Row>
+                <Row>
                   <Col className="pl" md="4">
                     <Form.Group>
                       <label>Email address</label>
