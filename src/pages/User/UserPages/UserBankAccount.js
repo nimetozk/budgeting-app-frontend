@@ -117,7 +117,7 @@ const UserBankAccount = () => {
             <Card.Body>
               <Form>
                 <Row>
-                  <Col className="pr-1" md="5">
+                  <Col className="pr-1" md="4">
                     <Form.Group>
                       <label>Select Bank Name </label>
                       <SelectBank
@@ -127,7 +127,7 @@ const UserBankAccount = () => {
                       ></SelectBank>
                     </Form.Group>
                   </Col>
-                  <Col className="px-1" md="3">
+                  <Col className="px-1" md="4">
                     <Form.Group>
                       <label>Sort Code</label>
                       <Form.Control
@@ -189,56 +189,59 @@ const UserBankAccount = () => {
                 <div className="clearfix"></div>
               </Form>
               <Button className="btn-fill pull-right" onClick={handleSave}>
-                Save
+                Add Bank Account
               </Button>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+      <Row style={{ background: "white", margin: "10px" }}>
+        <h4 style={{ margin: "18px" }}>Your Bank Accounts</h4>
 
-      {bankAccountList.length && (
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>Bank Name</th>
-              <th>Sort Code</th>
-              <th>Account Number</th>
-              <th>Country</th>
-              <th>Currency</th>
-              <th>Description</th>
-              <th>
-                <label>Delete Account</label>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {bankAccountList.map((bankAccount) => (
-              <tr key={bankAccount._id}>
-                <td>{bankAccount.refBank.name}</td>
-                <td>{bankAccount.sortCode}</td>
-                <td>{bankAccount.accountNo}</td>
-                <td>{bankAccount.country}</td>
-                <td>{bankAccount.currency}</td>
-                <td>{bankAccount.description}</td>
-                <td
-                  style={{
-                    padding: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Button
-                    size="sm"
-                    onClick={() => handleDelete(bankAccount._id)}
-                  >
-                    Delete
-                  </Button>
-                </td>
+        {bankAccountList.length && (
+          <Table striped bordered hover size="sm">
+            <thead>
+              <tr>
+                <th>Bank Name</th>
+                <th>Sort Code</th>
+                <th>Account Number</th>
+                <th>Country</th>
+                <th>Currency</th>
+                <th>Description</th>
+                <th>
+                  <label>Delete Account</label>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
+            </thead>
+            <tbody>
+              {bankAccountList.map((bankAccount) => (
+                <tr key={bankAccount._id}>
+                  <td>{bankAccount.refBank.name}</td>
+                  <td>{bankAccount.sortCode}</td>
+                  <td>{bankAccount.accountNo}</td>
+                  <td>{bankAccount.country}</td>
+                  <td>{bankAccount.currency}</td>
+                  <td>{bankAccount.description}</td>
+                  <td
+                    style={{
+                      padding: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Button
+                      size="sm"
+                      onClick={() => handleDelete(bankAccount._id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
+      </Row>
     </Container>
   );
 };

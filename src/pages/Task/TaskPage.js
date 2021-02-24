@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
+import SelectionBank from "components/Controls/SelectionBank";
+
+import service from "../../services/service";
+
+import { to } from "await-to-js";
+import Upload from "rc-upload";
 
 import {
   Table,
@@ -11,8 +18,78 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import SelectionBankAccount from "components/Controls/SelectionBankAccounts";
 
 const TaskPage = () => {
+  const [bankOption, setBankOption] = useState({ value: "", label: "" });
+  const [bankAccountOption, setBankAccountOption] = useState({
+    value: "",
+    label: "",
+  });
+  const [entity, setEntity] = useState({
+    id: "",
+    name: "",
+    uploadDate: "",
+    fileName: "",
+    status: "",
+    refBankAccount: "",
+  });
+
+  const params = useParams();
+  const [formStatus, setFormStatus] = useState(params.formStatus);
+  const [id, setId] = useState(params.id);
+
+  useEffect(async () => {
+    if (!id || id === "0") return;
+
+    const [error, response] = await to(service.getTaskById(id));
+    if (error) {
+      alert(error);
+      return;
+    }
+
+    setEntity(response.data);
+    setBankOption({
+      value: response.data.refBankAccount.refBank._id,
+      label: response.data.refBankAccount.refBank.name,
+    });
+    setBankAccountOption({
+      value: response.data.refBankAccount._id,
+      label: `${response.data.refBankAccount.sortCode} ${response.data.refBankAccount.accountNo}`,
+    });
+  }, [id]);
+
+  const handleSave = async () => {
+    const task = { ...entity, refBankAccount: bankAccountOption.value };
+
+    if (formStatus === "new") {
+      const [error, response] = await to(service.insertTask(task));
+      if (error) {
+        alert(error);
+        return;
+      }
+
+      setEntity(response.data);
+      setId(response.data._id);
+      setFormStatus("edit");
+    } else {
+      // update yapılacak
+    }
+  };
+
+  const handleBankChange = (option) => {
+    setBankOption({ ...option });
+    setBankAccountOption({ value: "", label: "" });
+  };
+
+  const handleBankAccountChange = (option) => {
+    setBankAccountOption({ ...option });
+  };
+
+  const handleTextChange = (event) => {
+    setEntity({ ...entity, name: event.target.value });
+  };
+
   return (
     <>
       <Container fluid>
@@ -23,30 +100,7 @@ const TaskPage = () => {
             flexDirection: "column",
             margin: "0px",
           }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Link to="/tasks">
-              <span></span>
-              <button
-                class="btn btn-primary"
-                type="button"
-                style={{
-                  backgroundColor: "rgb(52, 114, 247)",
-                  color: "white",
-                  borderColor: "white",
-                }}
-              >
-                Tasks
-              </button>
-            </Link>
-          </div>
-        </Row>
+        ></Row>
         <Row>
           <Col style={{ width: "100%" }}>
             <Card>
@@ -56,112 +110,48 @@ const TaskPage = () => {
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="4">
                       <Form.Group>
                         <label>Task Name: </label>
                         <Form.Control
+                          value={entity.name}
+                          name="name"
+                          onChange={handleTextChange}
                           placeholder="Upload Bank Statement"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="px-1" md="3">
-                      <Form.Group>
-                        <label>Bank Name:</label>
-                        <Form.Control
-                          placeholder="LLoyds Sutton"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>ACCOUNT TYPE????</label>
-                        <Form.Control
-                          placeholder="Debit/Credit"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col className="pr-1" md="4">
-                      <Form.Group>
-                        <label>Account Number:</label>
-                        <Form.Control
-                          placeholder="12-34-56"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                     <Col className="px-1" md="4">
                       <Form.Group>
-                        <label>Sort Code:</label>
-                        <Form.Control
-                          placeholder="123456"
-                          type="text"
-                        ></Form.Control>
+                        <label>Bank Name:</label>
+                        <SelectionBank
+                          value={bankOption}
+                          onBankChange={handleBankChange}
+                        ></SelectionBank>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
+                    <Col className="pr-1" md="4">
                       <Form.Group>
-                        <label>Upload Date:</label>
-                        <Form.Control
-                          placeholder="01/01/2021"
-                          type="date"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Currency:</label>
-                        <Form.Control
-                          placeholder="GBP"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Country:</label>
-                        <Form.Control
-                          placeholder="England"
-                          type="text"
-                        ></Form.Control>
+                        <label>Bank Account Description:</label>
+                        <SelectionBankAccount
+                          value={bankAccountOption}
+                          onBankAccountChange={handleBankAccountChange}
+                          bankId={bankOption.value}
+                        ></SelectionBankAccount>
                       </Form.Group>
                     </Col>
                   </Row>
 
                   <Row>
-                    <Col className="pl" md="6">
+                    <Col className="pl" md="4">
                       <Form.Group>
-                        <label>Choose a file to upload:</label>
-                        <label className="file-label">
-                          <span className="file-cta">
-                            <span
-                              className="file-icon"
-                              style={{
-                                padding: "10px",
-                                flexDirection: "column",
-                                margin: "0px",
-                              }}
-                            >
-                              <i className="fas fa-upload"></i>
-                            </span>
-                            <input
-                              style={{
-                                padding: "5px",
-                                flexDirection: "column",
-                                margin: "0px",
-                              }}
-                              className="file-input"
-                              type="file"
-                              name="resume"
-                            />
-                          </span>
-                          <span className="file-name"></span>
-                        </label>
+                        <label>Upload Date:</label>
+                        <Form.Control
+                          value={entity.uploadDate}
+                          placeholder="01/01/2021"
+                          type="date"
+                        ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -170,7 +160,7 @@ const TaskPage = () => {
                     className="
                     btn
                     btn-outline-secondary"
-                    type="submit"
+                    onClick={handleSave}
                     style={{
                       cursor: "pointer",
                       borderColor: "#3472F7",
@@ -185,44 +175,47 @@ const TaskPage = () => {
           </Col>
         </Row>
 
-        <Row
-          style={{
-            padding: "10px",
-            backgroundColor: "white",
-            margin: "3px",
-            border: "1px solid #e1e1e1",
-          }}
-        >
-          <h4>Edit: Transactions</h4>
-          <Table striped bordered hover size="sm">
-            <thead>
-              <tr>
-                <th>Sort Code</th>
-                <th>Account Number</th>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Currency</th>
-                <th>Amount</th>
-                <th>External Code</th>
-                <th>Reference</th>
-                <th>Category</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </Table>
-        </Row>
+        {formStatus === "edit" && (
+          <Row
+            style={{
+              padding: "10px",
+              backgroundColor: "white",
+              margin: "2px",
+              border: "1px solid #e1e1e1",
+            }}
+          >
+            <Upload />
+            <h4>Edit: Transactions</h4>
+            <Table striped bordered hover size="sm">
+              <thead>
+                <tr>
+                  <th>Sort Code</th>
+                  <th>Account Number</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Currency</th>
+                  <th>Amount</th>
+                  <th>External Code</th>
+                  <th>Reference</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </Table>
+          </Row>
+        )}
       </Container>
     </>
   );
