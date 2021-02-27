@@ -52,7 +52,7 @@ const BankListPage = () => {
         <tbody>
           {bankList &&
             bankList.map((bank) => (
-              <tr>
+              <tr key={bank._id}>
                 <td>{bank._id}</td>
                 <td>{bank.name}</td>
                 <td

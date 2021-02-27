@@ -4,6 +4,7 @@ import { to } from "await-to-js";
 import { Table, Button } from "react-bootstrap";
 import Box from "components/Box";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
 
 const TaskListPage = () => {
   const [taskList, setTaskList] = useState([]);
@@ -61,7 +62,7 @@ const TaskListPage = () => {
               <tr>
                 <td>{task.name}</td>
                 <td>{task.status}</td>
-                <td>{task.uploadDate}</td>
+                <td>{moment(task.uploadDate).format("DD/MM/YYYY")}</td>
                 <td>{task.refBankAccount.refBank.name}</td>
                 <td>{task.refBankAccount.accountNo}</td>
                 <td>{task.refBankAccount.sortCode}</td>

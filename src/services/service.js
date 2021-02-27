@@ -105,6 +105,18 @@ class Service {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
+
+  getCategoryList() {
+    return httpClient.get("/api/category/list", {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  partialTransactionUpdate(refCategory, id) {
+    return httpClient.patch(`/api/transaction/${id}`, refCategory, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
 }
 
 export default new Service();

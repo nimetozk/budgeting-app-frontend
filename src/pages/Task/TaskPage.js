@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import { Link, useParams } from "react-router-dom";
-
+import SelectionBankAccount from "components/Controls/SelectionBankAccounts";
 import SelectionBank from "components/Controls/SelectionBank";
-
 import service from "../../services/service";
-
+import { CardHeader } from "reactstrap";
 import { to } from "await-to-js";
 import Upload from "rc-upload";
-
+import TransactionsTable from "./TransactionsTable";
+import TaskUpload from "./TaskUpload";
 import {
   Table,
   Button,
@@ -18,9 +18,6 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import SelectionBankAccount from "components/Controls/SelectionBankAccounts";
-import { CardHeader } from "reactstrap";
-import TransactionsTable from "./TransactionsTable";
 
 const TaskPage = () => {
   const [bankOption, setBankOption] = useState({ value: "", label: "" });
@@ -111,7 +108,11 @@ const TaskPage = () => {
         break;
 
       case "uploadDate":
-        setEntity({ ...entity, uploadDate: event.target.value });
+        setEntity({
+          ...entity,
+          uploadDate: event.target.value,
+        });
+
         break;
 
       default:
@@ -129,12 +130,6 @@ const TaskPage = () => {
 
     beforeUpload(file) {
       console.log("beforeUpload", file.name);
-
-      /*
-      const formData = new FormData();
-      formData.append("myTsvFile", file);
-      return new Promise((resolve) => resolve(formData));
-      */
     },
     onStart: (file) => {
       console.log("onStart", file.name);
@@ -152,17 +147,15 @@ const TaskPage = () => {
     },
     style: {
       display: "inline-block",
-      width: 370,
-      height: 50,
+      width: 570,
+      height: 120,
       background: "#eee",
       border: "1px dashed black",
-      marginBottom: "10px",
+      margin: "15px 5px",
       textAlign: "center",
     },
-    // openFileDialogOnClick: false,
   };
 
-  //get current task id
   const handleFileSubmit = async (task, file) => {
     formData = new FormData();
     formData.append("myTsvFile", file);
@@ -176,6 +169,19 @@ const TaskPage = () => {
       setFormData(response.data);
     }
   };
+
+  const handleTransactionChange = async (transaction, index) => {
+    transactions[index] = transaction;
+    const [error, response] = await to(
+      service.partialTransactionUpdate(transaction.refCategory, transaction._id)
+    );
+    if (error) {
+      alert(error);
+      return;
+    }
+    setTransactions([...transactions]);
+  };
+
   return (
     <>
       <Container fluid>
@@ -240,48 +246,18 @@ const TaskPage = () => {
           </Col>
         </Row>
         {formStatus === "edit" && (
-          <Row>
-            <Col>
-              <Card>
-                <CardHeader>
-                  <Card.Title as="h4">Upload Transactions</Card.Title>
-                </CardHeader>
-                <Card.Body>
-                  <Form>
-                    <Row>
-                      <Col className="pl" md="4">
-                        <Form.Group>
-                          <label>Upload Date:</label>
-                          <Form.Control
-                            name="uploadDate"
-                            value={entity.uploadDate}
-                            placeholder="01/01/2021"
-                            type="text"
-                            onChange={handleTextChange}
-                          ></Form.Control>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Upload
-                          {...uploadFile}
-                          value={entity.fileName}
-                          name="myTsvFile"
-                        >
-                          <a>Drag Your File</a>
-                        </Upload>
-                      </Col>
-                    </Row>
-                  </Form>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+          <TaskUpload
+            entity={entity}
+            OnTextChange={handleTextChange}
+            uploadFile={uploadFile}
+          ></TaskUpload>
         )}
 
         {formStatus === "edit" && (
-          <TransactionsTable transactions={transactions}></TransactionsTable>
+          <TransactionsTable
+            transactions={transactions}
+            onTransactionChange={handleTransactionChange}
+          ></TransactionsTable>
         )}
       </Container>
     </>
