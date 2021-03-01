@@ -29,22 +29,29 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import AdminLayout from "layouts/Admin.js";
 import LoginPage from "pages/User/Login/LoginPage";
 import RegisterPage from "pages/User/Register/RegisterPage";
+import { ConfirmationServiceProvider } from "./components/Dialog/dialog-provider";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/login">
-        <LoginPage></LoginPage>
-      </Route>
-      <Route path="/register">
-        <RegisterPage></RegisterPage>
-      </Route>
-      <Route path="/" render={(props) => <AdminLayout {...props} />} />
+  <ConfirmationServiceProvider>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login">
+          <LoginPage></LoginPage>
+        </Route>
+        <Route path="/register">
+          <RegisterPage></RegisterPage>
+        </Route>
+        <Route path="/" render={(props) => <AdminLayout {...props} />} />
 
-      {/*
+        {/*
      <Redirect from="/" to="/admin/dashboard" />
      */}
-    </Switch>
-  </BrowserRouter>,
+      </Switch>
+    </BrowserRouter>
+  </ConfirmationServiceProvider>,
   document.getElementById("root")
 );
