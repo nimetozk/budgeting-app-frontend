@@ -18,6 +18,8 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { errorToString } from "utility";
 
 const TaskPage = () => {
   const [bankOption, setBankOption] = useState({ value: "", label: "" });
@@ -42,7 +44,7 @@ const TaskPage = () => {
   const getTask = async (id) => {
     const [error, response] = await to(service.getTaskById(id));
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
       return;
     }
 
@@ -57,6 +59,8 @@ const TaskPage = () => {
     });
 
     getTransactions(response.data._id);
+
+    toast.success(" Başaralı ", { delay: 3000 });
   };
 
   useEffect(async () => {

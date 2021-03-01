@@ -45,7 +45,7 @@ const TaskUpload = ({ entity, OnTextChange, uploadFile }) => {
                     value={entity.fileName}
                     name="myTsvFile"
                   >
-                    <a>Drag Your File</a>
+                    <a>Drag Your '.tsv' (Tab-separated Values) File</a>
                   </Upload>
                 </Col>
               </Row>

@@ -17,6 +17,7 @@ import {
   Table,
   FormControl,
 } from "react-bootstrap";
+import { useConfirmation } from "components/Dialog/dialog-provider";
 
 const UserBankAccount = () => {
   const [bankOption, setBankOption] = useState({ value: "", label: "" });
@@ -28,6 +29,8 @@ const UserBankAccount = () => {
     country: "",
     refBank: "",
   });
+
+  const confirm = useConfirmation();
 
   const [bankAccountList, setBankAccountList] = useState([]);
 
@@ -47,7 +50,7 @@ const UserBankAccount = () => {
     setBankOption({ ...option });
   };
 
-  const handleSave = async () => {
+  const save = async () => {
     userBankAccount.refBank = bankOption.value;
     const [error, response] = await to(
       service.insertBankAccount(userBankAccount)
@@ -59,21 +62,34 @@ const UserBankAccount = () => {
     getUserBankAccounts();
   };
 
-  const handleDelete = async (bankAccountId) => {
-    const [error, response] = await to(
-      service.getDeleteBankAccountById(bankAccountId)
-    );
-    if (error) {
-      alert(error);
-      return;
-    }
+  const handleSave = async () => {
+    confirm({
+      title: "Save Bank Account",
+      description: "Are you sure to save bank account ?",
+    }).then(() => {
+      save();
+    });
+  };
 
-    const tempBankAccountList = [...bankAccountList];
-    const index = tempBankAccountList.findIndex(
-      (bankAccount) => bankAccount._id === bankAccountId
-    );
-    tempBankAccountList.splice(index, 1);
-    setBankAccountList(tempBankAccountList);
+  const handleDelete = async (bankAccountId) => {
+    confirm({
+      title: "DELETE",
+      description: "Are you sure to delete the item ?",
+    }).then(() => {
+      service
+        .getDeleteBankAccountById(bankAccountId)
+        .then((response) => {
+          const tempBankAccountList = [...bankAccountList];
+          const index = tempBankAccountList.findIndex(
+            (bankAccount) => bankAccount._id === bankAccountId
+          );
+          tempBankAccountList.splice(index, 1);
+          setBankAccountList(tempBankAccountList);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    });
   };
 
   const handleChange = (event) => {
