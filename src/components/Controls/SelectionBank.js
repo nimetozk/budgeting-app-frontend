@@ -4,7 +4,7 @@ import service from "../../services/service";
 import { to } from "await-to-js";
 
 const SelectBank = (props) => {
-  const { value, onBankChange } = props;
+  const { value, onBankChange, allBanks } = props;
   const [options, setOptions] = useState([]);
 
   useEffect(async () => {
@@ -15,6 +15,9 @@ const SelectBank = (props) => {
     }
 
     const tempOptions = [];
+    if (allBanks) {
+      tempOptions.push({ value: null, label: "All Banks" });
+    }
     response.data.forEach((bank) => {
       tempOptions.push({ value: bank._id, label: bank.name });
     });
