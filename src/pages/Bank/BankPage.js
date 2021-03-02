@@ -4,6 +4,7 @@ import service from "services/service";
 import { useHistory, useParams } from "react-router-dom";
 import { to } from "await-to-js";
 import SelectBank from "../../components/Controls/SelectionBank";
+import { useConfirmation } from "../../components/Dialog/dialog-provider";
 
 const BankPage = () => {
   const history = useHistory();
@@ -13,6 +14,7 @@ const BankPage = () => {
   });
 
   const { formStatus, id } = params;
+  const confirm = useConfirmation();
 
   useEffect(async () => {
     if (id) {
@@ -30,7 +32,7 @@ const BankPage = () => {
     setEntity({ ...entity, name: event.target.value });
   };
 
-  const handleSave = async () => {
+  const confirmBankSave = async () => {
     const [error, response] = await to(service.insertBank(entity));
     if (error) {
       alert("errror" + error.message ?? "");
@@ -39,6 +41,16 @@ const BankPage = () => {
 
     history.replace("/banks");
   };
+
+  const handleSave = async () => {
+    confirm({
+      title: "Add Bank",
+      description: "Are you sure you want to add new bank ?",
+    }).then(() => {
+      confirmBankSave();
+    });
+  };
+
   return (
     <Container>
       <Card>

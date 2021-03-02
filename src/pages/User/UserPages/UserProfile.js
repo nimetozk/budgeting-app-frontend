@@ -6,23 +6,9 @@ import { to } from "await-to-js";
 import UserDetail from "./UserDetail";
 import UserBankAccount from "./UserBankAccount";
 
-// react-bootstrap components
 import { Tab, Tabs } from "react-bootstrap";
 
 const User = () => {
-  const handleDelete = async (bankAccount) => {
-    if (id) {
-      const [error, response] = await to(
-        service.getDeleteBankAccountById(bankAccount)
-      );
-      if (error) {
-        alert("error" + error.message ?? "");
-        return;
-      }
-      history.push("/user");
-    }
-  };
-
   return (
     <>
       <Tabs

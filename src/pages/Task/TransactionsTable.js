@@ -3,6 +3,7 @@ import react from "react";
 import { Row, Table } from "react-bootstrap";
 import SelectionCategory from "components/Controls/SelectionCategory";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 moment.locale("en-gb");
 
@@ -12,6 +13,7 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
     const transaction = { ...transactions[index] };
     transaction.refCategory = { _id: option.value, name: option.label };
     onTransactionChange(transaction, index);
+    toast.success("Category is updated!", { delay: 0 });
   };
 
   return (

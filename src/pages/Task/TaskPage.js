@@ -20,6 +20,7 @@ import {
 } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { errorToString } from "utility";
+import { useConfirmation } from "../../components/Dialog/dialog-provider";
 
 const TaskPage = () => {
   const [bankOption, setBankOption] = useState({ value: "", label: "" });
@@ -41,6 +42,8 @@ const TaskPage = () => {
   const [id, setId] = useState(params.id);
   const [transactions, setTransactions] = useState([]);
 
+  const confirm = useConfirmation();
+
   const getTask = async (id) => {
     const [error, response] = await to(service.getTaskById(id));
     if (error) {
@@ -59,8 +62,6 @@ const TaskPage = () => {
     });
 
     getTransactions(response.data._id);
-
-    toast.success(" Başaralı ", { delay: 3000 });
   };
 
   useEffect(async () => {
@@ -68,13 +69,13 @@ const TaskPage = () => {
     getTask(id);
   }, [id]);
 
-  const handleSave = async () => {
+  const confirmSave = async () => {
     const task = { ...entity, refBankAccount: bankAccountOption.value };
 
     if (formStatus === "new") {
       const [error, response] = await to(service.insertTask(task));
       if (error) {
-        alert(error);
+        toast.error(errorToString(error));
         return;
       }
 
@@ -86,10 +87,19 @@ const TaskPage = () => {
     }
   };
 
+  const handleSave = async () => {
+    confirm({
+      title: "Save Task",
+      description: "Are you sure you want to create a new task ?",
+    }).then(() => {
+      confirmSave();
+    });
+  };
+
   const getTransactions = async (taskId) => {
     const [error, response] = await to(service.getTransactionsByTaskId(taskId));
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
       return;
     }
 
@@ -141,6 +151,9 @@ const TaskPage = () => {
     onSuccess(file) {
       getTask(entity._id);
       getTransactions(entity._id);
+      toast.success(" Your file is uploaded successfully Scroll down ! ", {
+        delay: 0,
+      });
       console.log("onSuccess", file);
     },
     onProgress(step, file) {
@@ -166,7 +179,7 @@ const TaskPage = () => {
     if (!file) {
       const [error, response] = await to(service.uploadFile(task, file));
       if (error) {
-        alert(error);
+        toast.error(errorToString(error));
         return;
       }
 
@@ -180,7 +193,7 @@ const TaskPage = () => {
       service.partialTransactionUpdate(transaction.refCategory, transaction._id)
     );
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
       return;
     }
     setTransactions([...transactions]);
@@ -241,7 +254,7 @@ const TaskPage = () => {
                       borderColor: "#3472F7",
                     }}
                   >
-                    Add New Task
+                    Save Task
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
