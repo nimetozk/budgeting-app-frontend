@@ -1,7 +1,9 @@
 import react, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { useConfirmation } from "components/Dialog/dialog-provider";
 import service from "../../../services/service";
 import { to } from "await-to-js";
+import { toast } from "react-toastify";
 
 const UserDetail = () => {
   const [entity, setEntity] = useState({
@@ -11,6 +13,8 @@ const UserDetail = () => {
     password: "",
     phoneNumber: "",
   });
+
+  const confirm = useConfirmation();
 
   const getCurrentUser = async () => {
     const [error, response] = await to(service.getCurrentUser());
@@ -44,14 +48,27 @@ const UserDetail = () => {
     }
   };
 
-  const handleUpdate = async (event) => {
+  const updateUserDetails = async (event) => {
     event.preventDefault();
     const [error, response] = await to(service.updateUser(entity));
     if (error) {
-      alert();
+      toast.error(errorToString(error));
+      return;
     }
 
     setEntity(response.data);
+  };
+
+  const handleUpdate = async (event) => {
+    confirm({
+      title: "Update User Details",
+      description: "Are you sure you want to update your details ?",
+    }).then(() => {
+      updateUserDetails(event);
+      toast.success(" Your details are successfully updated! ", {
+        delay: 1000,
+      });
+    });
   };
 
   return (

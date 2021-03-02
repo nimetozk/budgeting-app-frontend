@@ -1,12 +1,12 @@
+import { useConfirmation } from "components/Dialog/dialog-provider";
 import SelectBank from "components/Controls/SelectionBank";
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import service from "../../../services/service";
 import { to } from "await-to-js";
-
+import { toast } from "react-toastify";
 import { CardHeader } from "reactstrap";
 
-// react-bootstrap components
 import {
   Button,
   Card,
@@ -17,7 +17,6 @@ import {
   Table,
   FormControl,
 } from "react-bootstrap";
-import { useConfirmation } from "components/Dialog/dialog-provider";
 
 const UserBankAccount = () => {
   const [bankOption, setBankOption] = useState({ value: "", label: "" });
@@ -37,7 +36,8 @@ const UserBankAccount = () => {
   const getUserBankAccounts = async () => {
     const [error, response] = await to(service.getCurrentUserBankAccounts());
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
+      return;
     }
     setBankAccountList(response.data);
   };
@@ -56,7 +56,7 @@ const UserBankAccount = () => {
       service.insertBankAccount(userBankAccount)
     );
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
       return;
     }
     getUserBankAccounts();
@@ -68,6 +68,7 @@ const UserBankAccount = () => {
       description: "Are you sure to save bank account ?",
     }).then(() => {
       save();
+      toast.success("Your bank account is saved successully", { delay: 3000 });
     });
   };
 
@@ -85,9 +86,11 @@ const UserBankAccount = () => {
           );
           tempBankAccountList.splice(index, 1);
           setBankAccountList(tempBankAccountList);
+          toast.success("Account is deleted successfully", { delay: 3000 });
         })
         .catch((error) => {
-          alert(error);
+          toast.error(errorToString(error));
+          return;
         });
     });
   };

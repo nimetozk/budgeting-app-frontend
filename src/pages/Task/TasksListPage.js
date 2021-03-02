@@ -26,7 +26,6 @@ const TaskListPage = () => {
 
   const handleTaskEdit = (taskId) => {
     history.replace("/tasks/formStatus/edit/id/" + taskId);
-    // console.log("edit clik");
   };
 
   return (
