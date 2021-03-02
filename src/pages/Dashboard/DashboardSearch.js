@@ -1,44 +1,29 @@
-import SelectBank from "components/Controls/SelectionBank";
 import react, { useState } from "react";
-import { Button, Row, Form, Col, Card } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
-
+import SelectBank from "components/Controls/SelectionBank";
 import moment from "moment";
-import service from "services/service";
-import DashboardSearch from "./DashboardSearch";
 
-const DashboardPage = () => {
-  const [selectedBanks, setSelectedBanks] = useState({
-    value: null,
-    label: "All Banks",
-  });
+import {
+  Button,
+  Card,
+  Form,
+  Container,
+  Row,
+  Col,
+  Table,
+  FormControl,
+} from "react-bootstrap";
 
-  const [firstDate, setFirstDate] = useState(
-    moment(new Date()).format("YYYY-MM-DD")
-  );
-  const [lastDate, setLastDate] = useState(
-    moment(new Date()).format("YYYY-MM-DD")
-  );
-
+const DashboardSearch = (
+  handleDateChange,
+  handleBtnSearch,
+  handleBankChange,
+  selectedBanks,
+  firstDate,
+  lastDate
+) => {
   const [firstDateChecked, setFirstDateCheck] = useState(false);
   const [lastDateChecked, setLastDateCheck] = useState(false);
-
-  const handleBankChange = (option) => {
-    setSelectedBanks({ ...option });
-  };
-
-  const handleBtnSearch = async () => {
-    const bankId = selectedBanks.value;
-    const startDate = firstDateChecked ? firstDate : null;
-    const endDate = lastDateChecked ? lastDate : null;
-
-    const [error, responseIncome] = await to(
-      service.getCategoryGroupTransactions(true, bankId, startDate, endDate)
-    );
-    const [error2, responseExpense] = await to(
-      service.getCategoryGroupTransactions(true, bankId, startDate, endDate)
-    );
-  };
 
   const handleDateCheck = (event) => {
     console.log(event.target.name, event.target.checked);
@@ -50,19 +35,6 @@ const DashboardPage = () => {
       case "lastDateCheck":
         console.log("last check");
         setLastDateCheck(event.target.checked);
-        break;
-
-      default:
-        break;
-    }
-  };
-  const handleDateChange = (event) => {
-    switch (event.target.name) {
-      case "firstDate":
-        setFirstDate(event.target.value);
-        break;
-      case "lastDate":
-        setLastDate(event.target.value);
         break;
 
       default:
@@ -149,7 +121,10 @@ const DashboardPage = () => {
                 </Col>
 
                 <Col className="pr-1" md="1" style={{ paddingTop: "30px" }}>
-                  <Button onClick={handleBtnSearch} style={{ height: "40px" }}>
+                  <Button
+                    onClick={() => handleBtnSearch}
+                    style={{ height: "40px" }}
+                  >
                     Filter
                   </Button>
                 </Col>
@@ -158,13 +133,8 @@ const DashboardPage = () => {
           </CardBody>
         </Card>
       </Col>
-
-      {/* <DashboardSearch
-          onChange={(handleDateChange, handleDateCheck)}
-          onBankChange={handleBankChange}
-        ></DashboardSearch> */}
     </Row>
   );
 };
 
-export default DashboardPage;
+export default DashboardSearch;

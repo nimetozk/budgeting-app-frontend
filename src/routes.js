@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Dashboard from "views/Dashboard.js";
+import Dashboard from "pages/Dashboard/DashboardPage";
 import UserProfile from "./pages/User/UserPages/UserProfile";
 import TaskListPage from "pages/Task/TasksListPage";
 import BankListPage from "pages/Bank/BankListPage";

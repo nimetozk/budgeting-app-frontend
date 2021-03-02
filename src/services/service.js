@@ -117,6 +117,8 @@ class Service {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
+
+  getCategoryGroupTransactions(income, bankId, startDate, endDate) {}
 }
 
 export default new Service();
