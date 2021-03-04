@@ -10,7 +10,7 @@ export const ConfirmationDialog = ({
 }) => {
   return (
     <Modal show={open}>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>{title || ""}</Modal.Title>
       </Modal.Header>
 

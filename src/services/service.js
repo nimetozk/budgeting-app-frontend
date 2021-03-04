@@ -118,7 +118,54 @@ class Service {
     });
   }
 
-  getCategoryGroupTransactions(income, bankId, startDate, endDate) {}
+  getCategoryGroupTransactions(income, bankId, startDate, endDate) {
+    let query = "";
+
+    if (startDate) {
+      query += `&startDate=${startDate}`;
+    }
+
+    if (endDate) {
+      query += `&endDate=${endDate}`;
+    }
+
+    if (bankId) {
+      query += `&bankId=${bankId}`;
+    }
+
+    return httpClient.get(
+      `/api/transaction/reportByCategory?income=${income}${query}`,
+      {
+        headers: { Authorization: localStorage.getItem("token") },
+      }
+    );
+  }
+
+  getMonthGroupTransactions(bankId, startDate, endDate) {
+    let query = "";
+
+    if (query === "" && bankId) {
+      query += `?bankId=${bankId}`;
+    } else if (bankId) {
+      query += `&bankId=${bankId}`;
+    }
+
+    if (query === "" && startDate) {
+      query += `?startDate=${startDate}`;
+    } else if (startDate) {
+      query += `&startDate=${startDate}`;
+    }
+
+    if (query === "" && endDate) {
+      query += `?endDate=${endDate}`;
+    } else if (endDate) {
+      query += `&endDate=${endDate}`;
+    }
+
+    return httpClient.get(`/api/transaction/reportByMonth?${query}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
 }
 
 export default new Service();
