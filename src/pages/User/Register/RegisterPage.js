@@ -11,6 +11,9 @@ import logo from "./logo.png";
 import "./register.css";
 import validator from "validator";
 
+import { toast } from "react-toastify";
+import { errorToString } from "utility";
+
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -31,8 +34,15 @@ const RegisterPage = () => {
         phoneNumber
       )
     );
+
+    if (err) {
+      toast.error(errorToString(err), { position: "top-center" });
+
+      return;
+    }
+
     localStorage.setItem("token", response.data.token);
-    history.push("/dashboard");
+    history.push("/login");
   };
 
   const handleEmailOnBlur = (event) => {
