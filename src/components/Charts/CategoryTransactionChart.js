@@ -2,7 +2,7 @@ import react, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 
 const CategoryTransactionChart = (props) => {
-  const { transactionGroups } = props;
+  const { transactionGroups, chartTitle } = props;
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
@@ -24,9 +24,24 @@ const CategoryTransactionChart = (props) => {
       loader={<div>Loading Chart</div>}
       data={chartData}
       options={{
-        title: `Instant Capacity`,
-        // Just add this option
         is3D: true,
+        fontName: "Roboto",
+        fontSize: 16,
+        title: `${chartTitle}`,
+        titleTextStyle: {
+          fontName: "Roboto",
+          fontSize: 22,
+          bold: true,
+          position: "right",
+        },
+        legend: {
+          textStyle: {
+            color: "black",
+            fontSize: 13,
+            fontName: "Roboto",
+            bold: true,
+          },
+        },
       }}
       rootProps={{ "data-testid": "2" }}
     />

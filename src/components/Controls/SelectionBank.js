@@ -4,7 +4,7 @@ import service from "../../services/service";
 import { to } from "await-to-js";
 
 const SelectBank = (props) => {
-  const { value, onBankChange, allBanks } = props;
+  const { value, onBankChange, allBanks, disabled } = props;
   const [options, setOptions] = useState([]);
 
   useEffect(async () => {
@@ -27,7 +27,12 @@ const SelectBank = (props) => {
 
   return (
     <>
-      <Select value={value} onChange={onBankChange} options={options}></Select>
+      <Select
+        value={value}
+        onChange={onBankChange}
+        options={options}
+        isDisabled={disabled}
+      ></Select>
     </>
   );
 };

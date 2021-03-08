@@ -89,7 +89,7 @@ class Service {
   }
 
   updateTask(task) {
-    return httpClient.put(`/api/task`, task, {
+    return httpClient.put(`/api/task/${task._id}`, task, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
@@ -141,28 +141,8 @@ class Service {
     );
   }
 
-  getMonthGroupTransactions(bankId, startDate, endDate) {
-    let query = "";
-
-    if (query === "" && bankId) {
-      query += `?bankId=${bankId}`;
-    } else if (bankId) {
-      query += `&bankId=${bankId}`;
-    }
-
-    if (query === "" && startDate) {
-      query += `?startDate=${startDate}`;
-    } else if (startDate) {
-      query += `&startDate=${startDate}`;
-    }
-
-    if (query === "" && endDate) {
-      query += `?endDate=${endDate}`;
-    } else if (endDate) {
-      query += `&endDate=${endDate}`;
-    }
-
-    return httpClient.get(`/api/transaction/reportByMonth?${query}`, {
+  getMonthGroupTransactions(year) {
+    return httpClient.get(`/api/transaction/reportByMonth?year=${year}`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
