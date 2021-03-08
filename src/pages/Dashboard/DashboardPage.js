@@ -7,6 +7,10 @@ import moment from "moment";
 import service from "services/service";
 import to from "await-to-js";
 import CategoryTransactionChart from "components/Charts/CategoryTransactionChart";
+import CategoryTransactionTable from "components/Charts/CategoryTransactionTable";
+import BudgetBarChart from "components/Charts/BudgetBarChart";
+import { toast } from "react-toastify";
+import { errorToString } from "utility";
 
 const DashboardPage = () => {
   const [selectedBanks, setSelectedBanks] = useState({
@@ -26,7 +30,6 @@ const DashboardPage = () => {
   const [incomeTransactions, setIncomeTransactions] = useState([]);
   const [expenseTransactions, setExpenseTransactions] = useState([]);
   //
-  const [monthTransactions, setMonthTransactions] = useState([]);
 
   const getData = (income) => {
     return to(
@@ -39,44 +42,22 @@ const DashboardPage = () => {
     );
   };
 
-  //
-  const getMonthlyData = () => {
-    return to(
-      service.getMonthGroupTransactions(
-        selectedBanks.value,
-        firstDateChecked ? firstDate : null,
-        lastDateChecked ? lastDate : null
-      )
-    );
-  };
-
   useEffect(async () => {
     const [incomeError, incomeResponse] = await getData(true);
     const [expenseError, expenseResponse] = await getData(false);
-    //
-    const [monthError, monthResponse] = await getMonthlyData();
 
     if (incomeError) {
-      alert(incomeError);
+      toast.error(errorToString(incomeError));
       return;
     }
 
     if (expenseError) {
-      alert(expenseError);
-      return;
-    }
-
-    //
-    if (monthError) {
-      alert(monthError);
+      toast.error(errorToString(expenseError));
       return;
     }
 
     setIncomeTransactions(incomeResponse.data);
     setExpenseTransactions(expenseResponse.data);
-
-    //
-    setMonthTransactions(monthResponse.data);
   }, []);
 
   const handleBankChange = (option) => {
@@ -91,9 +72,24 @@ const DashboardPage = () => {
     const [error, responseIncome] = await to(
       service.getCategoryGroupTransactions(true, bankId, startDate, endDate)
     );
+
+    if (error) {
+      toast.error(errorToString(error));
+      return;
+    }
+
+    setIncomeTransactions(responseIncome.data);
+
     const [error2, responseExpense] = await to(
-      service.getCategoryGroupTransactions(true, bankId, startDate, endDate)
+      service.getCategoryGroupTransactions(false, bankId, startDate, endDate)
     );
+
+    if (error2) {
+      toast.error(errorToString(error2));
+      return;
+    }
+
+    setExpenseTransactions(responseExpense.data);
   };
 
   const handleDateCheck = (event) => {
@@ -220,16 +216,44 @@ const DashboardPage = () => {
         </Col>
       </Row>
 
-      <Row>
+      <Row
+        style={{
+          width: "1227.2px",
+          marginLeft: "2px",
+          backgroundColor: "white",
+          border: "1px solid rgba(0,0,0,.125)",
+        }}
+      >
         <Col>
           <CategoryTransactionChart
             transactionGroups={incomeTransactions}
+            chartTitle={"Income"}
           ></CategoryTransactionChart>
         </Col>
         <Col>
           <CategoryTransactionChart
             transactionGroups={expenseTransactions}
+            chartTitle={"Expense"}
           ></CategoryTransactionChart>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <CategoryTransactionTable
+            transactionGroups={incomeTransactions}
+          ></CategoryTransactionTable>
+        </Col>
+        <Col>
+          <CategoryTransactionTable
+            transactionGroups={expenseTransactions}
+          ></CategoryTransactionTable>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <BudgetBarChart chartTitle={"Budget by Month"}></BudgetBarChart>
         </Col>
       </Row>
     </div>
