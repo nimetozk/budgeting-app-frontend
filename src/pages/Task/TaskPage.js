@@ -41,6 +41,7 @@ const TaskPage = () => {
   const [formStatus, setFormStatus] = useState(params.formStatus);
   const [id, setId] = useState(params.id);
   const [transactions, setTransactions] = useState([]);
+  const [bankInfoDisabled, setBankInfoDisabled] = useState(false);
 
   const confirm = useConfirmation();
 
@@ -69,6 +70,10 @@ const TaskPage = () => {
     getTask(id);
   }, [id]);
 
+  useEffect(() => {
+    setBankInfoDisabled((transactions && transactions.length) ?? false);
+  }, [transactions]);
+
   const confirmSave = async () => {
     const task = { ...entity, refBankAccount: bankAccountOption.value };
 
@@ -80,17 +85,24 @@ const TaskPage = () => {
       }
 
       setEntity(response.data);
-      setId(response.data._id);
       setFormStatus("edit");
     } else {
-      // update yapılacak
+      const [error, response] = await to(service.updateTask(task));
+      if (error) {
+        toast.error(errorToString(error));
+        return;
+      }
+
+      setEntity(response.data);
     }
+
+    toast.success("Task was saved successfuly !");
   };
 
   const handleSave = async () => {
     confirm({
       title: "Save Task",
-      description: "Are you sure you want to create a new task ?",
+      description: "Are you sure ?",
     }).then(() => {
       confirmSave();
     });
@@ -206,7 +218,7 @@ const TaskPage = () => {
           <Col>
             <Card>
               <Card.Header>
-                <Card.Title as="h4">New Task: Upload Bank Statement</Card.Title>
+                <Card.Title as="h4">Upload Bank Statement</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
@@ -227,6 +239,7 @@ const TaskPage = () => {
                       <Form.Group>
                         <label>Bank Name:</label>
                         <SelectionBank
+                          disabled={bankInfoDisabled}
                           value={bankOption}
                           onBankChange={handleBankChange}
                         ></SelectionBank>
@@ -236,6 +249,7 @@ const TaskPage = () => {
                       <Form.Group>
                         <label>Bank Account Description:</label>
                         <SelectionBankAccount
+                          disabled={bankInfoDisabled}
                           value={bankAccountOption}
                           onBankAccountChange={handleBankAccountChange}
                           bankId={bankOption.value}

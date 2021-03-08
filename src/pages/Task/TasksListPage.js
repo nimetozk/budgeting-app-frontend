@@ -57,8 +57,8 @@ const TaskListPage = () => {
         </thead>
         <tbody>
           {taskList &&
-            taskList.map((task) => (
-              <tr>
+            taskList.map((task, index) => (
+              <tr key={index}>
                 <td>{task.name}</td>
                 <td>{task.status}</td>
                 <td>{moment(task.uploadDate).format("DD/MM/YYYY")}</td>
