@@ -29,6 +29,7 @@ import BankPage from "../pages/Bank/BankPage";
 import routes from "routes.js";
 
 import sidebarImage from "assets/img/sidebar-3.jpg";
+import AdminUserPage from "pages/AdminUserPages/AdminAddUser";
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
@@ -79,6 +80,9 @@ function Admin() {
               </Route>
               <Route exact path="/banks/formStatus/:formStatus/id/:id">
                 <BankPage></BankPage>
+              </Route>
+              <Route exact path="/users/formStatus/:formStatus/id/:id">
+                <AdminUserPage></AdminUserPage>
               </Route>
             </Switch>
           </div>
