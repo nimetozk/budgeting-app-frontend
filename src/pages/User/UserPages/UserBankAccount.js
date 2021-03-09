@@ -1,7 +1,7 @@
 import { useConfirmation } from "components/Dialog/dialog-provider";
 import SelectBank from "components/Controls/SelectionBank";
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { errorToString } from "utility";
 import service from "../../../services/service";
 import { to } from "await-to-js";
 import { toast } from "react-toastify";
@@ -15,7 +15,6 @@ import {
   Row,
   Col,
   Table,
-  FormControl,
 } from "react-bootstrap";
 
 const UserBankAccount = () => {
@@ -138,6 +137,13 @@ const UserBankAccount = () => {
             <Card.Body>
               <Form>
                 <Row>
+                  <CardHeader>
+                    <h4 style={{ marginTop: "2px" }}>
+                      Enter Bank Accounts Details:
+                    </h4>
+                  </CardHeader>
+                </Row>
+                <Row>
                   <Col className="pr-1" md="4">
                     <Form.Group>
                       <label>Select Bank Name </label>
@@ -220,7 +226,7 @@ const UserBankAccount = () => {
         <Col>
           <Card>
             <CardHeader>
-              <h4 style={{ margin: "18px" }}>Your Bank Accounts</h4>
+              <h4>List of Your Bank Accounts</h4>
             </CardHeader>
             <Card.Body>
               <Table striped bordered hover size="sm">

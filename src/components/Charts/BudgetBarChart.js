@@ -6,7 +6,6 @@ import SelectionYear from "components/Controls/SelectionYear";
 import { Row, Col } from "react-bootstrap";
 
 const BudgetBarChart = (props) => {
-  const { chartTitle } = props;
   const [chartData, setChartData] = useState([]);
   const [selectedYear, setSelectedYear] = useState({
     value: 2021,
@@ -28,7 +27,7 @@ const BudgetBarChart = (props) => {
       return;
     }
 
-    const tempData = [["Month", "In", "Out"]];
+    const tempData = [["Month", "Incoming", "Spending"]];
     for (const groupItem of monthResponse.data)
       tempData.push([groupItem.month, groupItem.income, groupItem.expense]);
 
@@ -41,7 +40,8 @@ const BudgetBarChart = (props) => {
   return (
     <div>
       <Row>
-        <Col>
+        <Col className="pl" md="2">
+          <h5>Choose a Year: </h5>
           <SelectionYear
             value={selectedYear}
             onYearChange={handleYearChange}
@@ -52,15 +52,13 @@ const BudgetBarChart = (props) => {
         <Row>
           <Col>
             <Chart
-              width={"500px"}
+              width={"100%"}
               height={"300px"}
               chartType="ComboChart"
               loader={<div>Loading Chart</div>}
               data={chartData}
               options={{
-                title: "Monthly Coffee Production by Country",
-                vAxis: { title: "Cups" },
-                hAxis: { title: "Month" },
+                vAxis: { title: "Amount" },
                 seriesType: "bars",
                 series: { 5: { type: "line" } },
               }}

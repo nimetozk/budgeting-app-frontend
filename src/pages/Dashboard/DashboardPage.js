@@ -126,11 +126,16 @@ const DashboardPage = () => {
     <div>
       <Row>
         <Col>
-          <Card style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <CardHeader>
-              <Card.Title as="h4">Dashboard Page</Card.Title>
-            </CardHeader>
+          <Card>
             <CardBody>
+              <h3
+                style={{
+                  width: "295px",
+                }}
+              >
+                Statistics on Budgeting
+              </h3>
+              <h4>Filters: </h4>
               <Form>
                 <Row>
                   <Col className="pr-1" md="3">
@@ -216,44 +221,47 @@ const DashboardPage = () => {
         </Col>
       </Row>
 
-      <Row
-        style={{
-          width: "1227.2px",
-          marginLeft: "2px",
-          backgroundColor: "white",
-          border: "1px solid rgba(0,0,0,.125)",
-        }}
-      >
+      <Row>
         <Col>
-          <CategoryTransactionChart
-            transactionGroups={incomeTransactions}
-            chartTitle={"Income"}
-          ></CategoryTransactionChart>
-        </Col>
-        <Col>
-          <CategoryTransactionChart
-            transactionGroups={expenseTransactions}
-            chartTitle={"Expense"}
-          ></CategoryTransactionChart>
+          <Card>
+            <CardBody>
+              <Row>
+                <Col>
+                  <h4>Your Incomings</h4>
+                  <CategoryTransactionChart
+                    transactionGroups={incomeTransactions}
+                  ></CategoryTransactionChart>
+                  <CategoryTransactionTable
+                    transactionGroups={incomeTransactions}
+                  ></CategoryTransactionTable>
+                </Col>
+                <Col>
+                  <h4>Your Spendings</h4>
+                  <CategoryTransactionChart
+                    transactionGroups={expenseTransactions}
+                  ></CategoryTransactionChart>
+                  <CategoryTransactionTable
+                    transactionGroups={expenseTransactions}
+                  ></CategoryTransactionTable>
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
 
       <Row>
         <Col>
-          <CategoryTransactionTable
-            transactionGroups={incomeTransactions}
-          ></CategoryTransactionTable>
-        </Col>
-        <Col>
-          <CategoryTransactionTable
-            transactionGroups={expenseTransactions}
-          ></CategoryTransactionTable>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          <BudgetBarChart chartTitle={"Budget by Month"}></BudgetBarChart>
+          <Card>
+            <CardBody>
+              <Row>
+                <Col>
+                  <h4>Budget Trend Analysis:</h4>
+                  <BudgetBarChart></BudgetBarChart>
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
         </Col>
       </Row>
     </div>
