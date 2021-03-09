@@ -19,7 +19,7 @@ import Dashboard from "pages/Dashboard/DashboardPage";
 import UserProfile from "./pages/User/UserPages/UserProfile";
 import TaskListPage from "pages/Task/TasksListPage";
 import BankListPage from "pages/Bank/BankListPage";
-import UserList from "pages/AdminUserPages/UserList";
+import UserList from "pages/AdminUserPages/AdminUserList";
 
 const dashboardRoutes = [
   {
