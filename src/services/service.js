@@ -1,4 +1,5 @@
 import axios from "axios";
+import { to } from "await-to-js";
 
 const httpClient = axios.create({ baseURL: "http://localhost:4000" });
 
@@ -31,14 +32,38 @@ class Service {
     });
   }
 
+  getUserList() {
+    return httpClient.get("/api/user/list", {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
   insertBank(bankModel) {
     return httpClient.post("/api/bank", bankModel, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
 
+  insertUser(userModel) {
+    return httpClient.post("/api/user", userModel, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  getDeleteUserAccountById(id) {
+    return httpClient.delete(`/api/user/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
   getBankById(id) {
     return httpClient.get(`/api/bank/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  getUserById(id) {
+    return httpClient.get(`/api/user/${id}`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
@@ -145,6 +170,24 @@ class Service {
     return httpClient.get(`/api/transaction/reportByMonth?year=${year}`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
+  }
+
+  HasAdminRole() {
+    const jsonStr = localStorage.getItem("currentUser");
+    const currentUser = JSON.parse(jsonStr);
+    return currentUser.userRoles.includes("ADMIN");
+  }
+
+  async IsAuthenticated() {
+    const token = localStorage.getItem("token");
+    if (!token) return false;
+
+    const [err, response] = await to(this.getCurrentUser());
+    if (err) {
+      return false;
+    }
+
+    return true;
   }
 }
 

@@ -52,32 +52,32 @@ const BankPage = () => {
   };
 
   return (
-    <Container>
-      <Card>
-        <Card.Header>
-          <Card.Title as="h4">Bank Definetion</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <Form>
-            <Row>
-              <Col className="px" md="3">
-                <Form.Group>
-                  <label>Bank Name:</label>
-                  <Form.Control
-                    style={{ marginBottom: "10px" }}
-                    value={entity.name}
-                    onChange={handleChange}
-                    placeholder="LLoyds Sutton"
-                    type="text"
-                  ></Form.Control>
-                  <Button onClick={handleSave}>Add Bank</Button>
-                </Form.Group>
-              </Col>
-            </Row>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+    <div>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Body>
+              <h4>Bank Definition</h4>
+              <Row>
+                <Col className="px" md="3">
+                  <Form.Group>
+                    <label>Bank Name:</label>
+                    <Form.Control
+                      style={{ marginBottom: "10px" }}
+                      value={entity.name}
+                      onChange={handleChange}
+                      placeholder="LLoyds Sutton"
+                      type="text"
+                    ></Form.Control>
+                    <Button onClick={handleSave}>Add Bank</Button>
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

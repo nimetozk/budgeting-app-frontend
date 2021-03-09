@@ -21,6 +21,7 @@ import { useLocation, NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 
 import logo from "assets/img/reactlogo.png";
+import service from "services/service";
 
 function Sidebar({ color, image, routes }) {
   const location = useLocation();
@@ -54,7 +55,13 @@ function Sidebar({ color, image, routes }) {
         </div>
         <Nav>
           {routes.map((prop, key) => {
-            if (!prop.redirect)
+            if (!prop.redirect) {
+              if (
+                (prop.name === "Banks" || prop.name === "User List") &&
+                !service.HasAdminRole()
+              )
+                return null;
+
               return (
                 <li className={activeRoute(prop.layout + prop.path)} key={key}>
                   <NavLink
@@ -67,6 +74,7 @@ function Sidebar({ color, image, routes }) {
                   </NavLink>
                 </li>
               );
+            }
             return null;
           })}
         </Nav>
