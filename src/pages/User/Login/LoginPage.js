@@ -17,13 +17,26 @@ const LoginPage = () => {
   const history = useHistory();
 
   const handleLogin = async () => {
-    const [err, response] = await to(serviceProvider.signin(email, password));
+    let [err, response] = await to(serviceProvider.signin(email, password));
     if (err) {
       toast.error(errorToString(err), { position: "top-center" });
 
       return;
     }
     localStorage.setItem("token", response.data.token);
+
+    [err, response] = await to(serviceProvider.getCurrentUser());
+    if (err) {
+      toast.error(errorToString(err), { position: "top-center" });
+
+      return;
+    }
+
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify({ ...response.data, password: "" })
+    );
+
     history.push("/dashboard");
   };
 

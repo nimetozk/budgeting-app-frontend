@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SelectionBankAccount from "components/Controls/SelectionBankAccounts";
 import SelectionBank from "components/Controls/SelectionBank";
 import service from "../../services/service";
-import { CardHeader } from "reactstrap";
 import { to } from "await-to-js";
-import Upload from "rc-upload";
 import TransactionsTable from "./TransactionsTable";
 import TaskUpload from "./TaskUpload";
-import {
-  Table,
-  Button,
-  Card,
-  Form,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { errorToString } from "utility";
 import { useConfirmation } from "../../components/Dialog/dialog-provider";
@@ -217,11 +207,20 @@ const TaskPage = () => {
         <Row>
           <Col>
             <Card>
-              <Card.Header>
-                <Card.Title as="h4">Upload Bank Statement</Card.Title>
-              </Card.Header>
               <Card.Body>
                 <Form>
+                  <Row>
+                    <Col>
+                      <h3
+                        style={{
+                          width: "77px",
+                        }}
+                      >
+                        Tasks
+                      </h3>
+                      <h4>Enter Task Details:</h4>
+                    </Col>
+                  </Row>
                   <Row>
                     <Col className="pr" md="4">
                       <Form.Group>

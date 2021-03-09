@@ -81,7 +81,7 @@ const UserDetail = () => {
                 <Row>
                   <Col className="pl" md="6">
                     <Form.Group>
-                      <label>FirstName</label>
+                      <label>First Name</label>
                       <Form.Control
                         placeholder="First Name"
                         type="text"
@@ -134,7 +134,7 @@ const UserDetail = () => {
                       <label>Password</label>
                       <Form.Control
                         placeholder="*******"
-                        type="text"
+                        type="password"
                         name="password"
                         value={entity.password}
                         onChange={handleChange}

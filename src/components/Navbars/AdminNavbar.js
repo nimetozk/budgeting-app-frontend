@@ -16,13 +16,15 @@
 
 */
 import React, { Component } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
 
 import routes from "routes.js";
 
 function Header() {
   const location = useLocation();
+  const history = useHistory();
+
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
     document.documentElement.classList.toggle("nav-open");
@@ -43,6 +45,12 @@ function Header() {
     }
     return "Brand";
   };
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    history.push("/login");
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -193,11 +201,7 @@ function Header() {
               </Dropdown.Menu>
             </Dropdown>
             <Nav.Item>
-              <Nav.Link
-                className="m-0"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
+              <Nav.Link className="m-0" href="#pablo" onClick={handleLogOut}>
                 <span className="no-icon">Log out</span>
               </Nav.Link>
             </Nav.Item>

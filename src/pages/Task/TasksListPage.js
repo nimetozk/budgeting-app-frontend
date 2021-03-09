@@ -5,6 +5,7 @@ import { Table, Button } from "react-bootstrap";
 import Box from "components/Box";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import { CardBody, Row, Col, Card } from "reactstrap";
 
 const TaskListPage = () => {
   const [taskList, setTaskList] = useState([]);
@@ -29,58 +30,76 @@ const TaskListPage = () => {
   };
 
   return (
-    <>
-      <Box>
-        <Button
-          variant="primary"
-          onClick={hanldeUploadTask}
-          style={{
-            backgroundColor: "rgb(52, 114, 247)",
-            color: "white",
-            borderColor: "white",
-          }}
-        >
-          Add Task
-        </Button>
-      </Box>
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>Task Name</th>
-            <th>Status</th>
-            <th>Upload Date</th>
-            <th>Bank</th>
-            <th>Sort Code</th>
-            <th>Account No</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {taskList &&
-            taskList.map((task, index) => (
-              <tr key={index}>
-                <td>{task.name}</td>
-                <td>{task.status}</td>
-                <td>{moment(task.uploadDate).format("DD/MM/YYYY")}</td>
-                <td>{task.refBankAccount.refBank.name}</td>
-                <td>{task.refBankAccount.accountNo}</td>
-                <td>{task.refBankAccount.sortCode}</td>
-                <td
+    <div>
+      <Row>
+        <Col>
+          <Card>
+            <CardBody>
+              <h3
+                style={{
+                  width: "170px",
+                }}
+              >
+                List of Tasks:
+              </h3>
+              <Box>
+                <Button
+                  variant="primary"
+                  onClick={hanldeUploadTask}
                   style={{
-                    padding: "10px",
-                    display: "flex",
-                    flexDirection: "column",
+                    backgroundColor: "rgb(52, 114, 247)",
+                    color: "white",
+                    borderColor: "white",
                   }}
                 >
-                  <Button size="sm" onClick={() => handleTaskEdit(task._id)}>
-                    Edit
-                  </Button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
-    </>
+                  Add Task
+                </Button>
+              </Box>
+              <Table striped bordered hover size="sm">
+                <thead>
+                  <tr>
+                    <th>Task Name</th>
+                    <th>Status</th>
+                    <th>Upload Date</th>
+                    <th>Bank</th>
+                    <th>Sort Code</th>
+                    <th>Account No</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody>
+                  {taskList &&
+                    taskList.map((task, index) => (
+                      <tr key={index}>
+                        <td>{task.name}</td>
+                        <td>{task.status}</td>
+                        <td>{moment(task.uploadDate).format("DD/MM/YYYY")}</td>
+                        <td>{task.refBankAccount.refBank.name}</td>
+                        <td>{task.refBankAccount.accountNo}</td>
+                        <td>{task.refBankAccount.sortCode}</td>
+                        <td
+                          style={{
+                            padding: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <Button
+                            size="sm"
+                            onClick={() => handleTaskEdit(task._id)}
+                          >
+                            Edit
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

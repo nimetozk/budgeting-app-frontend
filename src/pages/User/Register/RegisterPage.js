@@ -74,7 +74,6 @@ const RegisterPage = () => {
     }
   };
 
-  console.log("email", email);
   return (
     <div className="all-content">
       <div className="left-content">
