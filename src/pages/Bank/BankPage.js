@@ -17,7 +17,7 @@ const BankPage = () => {
   const confirm = useConfirmation();
 
   useEffect(async () => {
-    if (id) {
+    if (id && id !== "0") {
       const [error, response] = await to(service.getBankById(id));
       if (error) {
         alert(error);
@@ -33,10 +33,18 @@ const BankPage = () => {
   };
 
   const confirmBankSave = async () => {
-    const [error, response] = await to(service.insertBank(entity));
-    if (error) {
-      alert("errror" + error.message ?? "");
-      return;
+    if (formStatus === "new") {
+      const [error, response] = await to(service.insertBank(entity));
+      if (error) {
+        alert("errror" + error.message ?? "");
+        return;
+      }
+    } else {
+      const [error, response] = await to(service.updateBank(entity));
+      if (error) {
+        alert("errror" + error.message ?? "");
+        return;
+      }
     }
 
     history.replace("/banks");

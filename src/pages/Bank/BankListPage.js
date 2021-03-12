@@ -1,6 +1,6 @@
 import react, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Row, Col, Card } from "react-bootstrap";
 import { to } from "await-to-js";
 import service from "../../services/service";
 import Box from "../../components/Box";
@@ -27,50 +27,61 @@ const BankListPage = () => {
   }, []);
 
   return (
-    <>
-      <Box>
-        <Button
-          variant="primary"
-          onClick={handleNewBank}
-          style={{
-            backgroundColor: "rgb(52, 114, 247)",
-            color: "white",
-            borderColor: "white",
-          }}
-        >
-          Add New Bank
-        </Button>
-      </Box>
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {bankList &&
-            bankList.map((bank) => (
-              <tr key={bank._id}>
-                <td>{bank._id}</td>
-                <td>{bank.name}</td>
-                <td
+    <div>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Body>
+              <Box>
+                <Button
+                  variant="primary"
+                  onClick={handleNewBank}
                   style={{
-                    padding: "10px",
-                    display: "flex",
-                    flexDirection: "column",
+                    backgroundColor: "rgb(52, 114, 247)",
+                    color: "white",
+                    borderColor: "white",
                   }}
                 >
-                  <Button size="sm" onClick={() => handleBankEdit(bank._id)}>
-                    Edit
-                  </Button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
-    </>
+                  Add New Bank
+                </Button>
+              </Box>
+              <Table striped bordered hover size="sm">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody>
+                  {bankList &&
+                    bankList.map((bank) => (
+                      <tr key={bank._id}>
+                        <td>{bank._id}</td>
+                        <td>{bank.name}</td>
+                        <td
+                          style={{
+                            padding: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <Button
+                            size="sm"
+                            onClick={() => handleBankEdit(bank._id)}
+                          >
+                            Edit
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
