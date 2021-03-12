@@ -128,13 +128,6 @@ const DashboardPage = () => {
         <Col>
           <Card>
             <CardBody>
-              <h3
-                style={{
-                  width: "295px",
-                }}
-              >
-                Statistics on Budgeting
-              </h3>
               <h4>Filters: </h4>
               <Form>
                 <Row>
