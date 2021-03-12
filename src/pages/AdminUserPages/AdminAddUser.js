@@ -22,7 +22,7 @@ const AdminUserPage = () => {
   const confirm = useConfirmation();
 
   useEffect(async () => {
-    if (id) {
+    if (id && id !== "0") {
       const [error, response] = await to(service.getUserById(id));
       if (error) {
         alert(error);
@@ -57,10 +57,18 @@ const AdminUserPage = () => {
   };
 
   const confirmUserSave = async () => {
-    const [error, response] = await to(service.insertUser(entity));
-    if (error) {
-      alert("error" + error.message ?? "");
-      return;
+    if (formStatus === "edit") {
+      const [error, response] = await to(service.updateUser(entity));
+      if (error) {
+        alert("error" + error.message ?? "");
+        return;
+      }
+    } else {
+      const [error, response] = await to(service.insertUser(entity));
+      if (error) {
+        alert("error" + error.message ?? "");
+        return;
+      }
     }
 
     history.replace("/users");
