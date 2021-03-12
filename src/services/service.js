@@ -92,6 +92,12 @@ class Service {
     });
   }
 
+  updateBank(bank) {
+    return httpClient.put("/api/bank", bank, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
   getCurrentUserBankAccounts() {
     return httpClient.get("/api/bankaccount/useraccounts", {
       headers: { Authorization: localStorage.getItem("token") },
