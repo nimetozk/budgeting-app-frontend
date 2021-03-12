@@ -27,6 +27,7 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "nc-icon nc-chart-pie-35",
     component: Dashboard,
+    title: "Statistics on Budgetting",
     layout: "/admin",
   },
   {
@@ -34,6 +35,7 @@ const dashboardRoutes = [
     name: "User Profile",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
+    title: "Profile",
     layout: "/admin",
   },
   {
@@ -41,6 +43,7 @@ const dashboardRoutes = [
     name: "Tasks",
     icon: "nc-icon nc-notes",
     component: TaskListPage,
+    title: "Tasks",
     layout: "/admin",
   },
   {
@@ -48,6 +51,7 @@ const dashboardRoutes = [
     name: "Banks",
     icon: "nc-icon nc-notes",
     component: BankListPage,
+    title: "Banks",
     layout: "/admin",
   },
   {
@@ -55,6 +59,7 @@ const dashboardRoutes = [
     name: "User List",
     icon: "nc-icon nc-notes",
     component: UserList,
+    title: "List of Users",
     layout: "/admin",
   },
 ];
