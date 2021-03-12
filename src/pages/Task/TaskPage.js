@@ -211,13 +211,6 @@ const TaskPage = () => {
                 <Form>
                   <Row>
                     <Col>
-                      <h3
-                        style={{
-                          width: "77px",
-                        }}
-                      >
-                        Tasks
-                      </h3>
                       <h4>Enter Task Details:</h4>
                     </Col>
                   </Row>

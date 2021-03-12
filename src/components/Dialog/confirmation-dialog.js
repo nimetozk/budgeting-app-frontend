@@ -1,5 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
 import React from "react";
+import "./confirmation-dialog.css";
 
 export const ConfirmationDialog = ({
   open,
@@ -15,12 +16,13 @@ export const ConfirmationDialog = ({
       </Modal.Header>
 
       <Modal.Body>{description}</Modal.Body>
+
       <Modal.Footer>
-        <Button color="primary" onClick={onSubmit}>
-          Ok
-        </Button>
-        <Button color="primary" onClick={onClose}>
+        <Button color="secondry" onClick={onClose}>
           Cancel
+        </Button>
+        <Button className="ok-btn" onClick={onSubmit}>
+          Ok
         </Button>
       </Modal.Footer>
     </Modal>

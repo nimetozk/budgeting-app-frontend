@@ -35,13 +35,6 @@ const TaskListPage = () => {
         <Col>
           <Card>
             <CardBody>
-              <h3
-                style={{
-                  width: "170px",
-                }}
-              >
-                List of Tasks:
-              </h3>
               <Box>
                 <Button
                   variant="primary"
@@ -74,9 +67,9 @@ const TaskListPage = () => {
                         <td>{task.name}</td>
                         <td>{task.status}</td>
                         <td>{moment(task.uploadDate).format("DD/MM/YYYY")}</td>
-                        <td>{task.refBankAccount.refBank.name}</td>
-                        <td>{task.refBankAccount.accountNo}</td>
-                        <td>{task.refBankAccount.sortCode}</td>
+                        <td>{task.bank.name}</td>
+                        <td>{task.bankAccount.sortCode}</td>
+                        <td>{task.bankAccount.accountNo}</td>
                         <td
                           style={{
                             padding: "10px",

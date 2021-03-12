@@ -81,7 +81,7 @@ const LoginPage = () => {
         <div className="main">
           <form>
             <div className="main-title">
-              <h1>Welsome to Easy Money!</h1>
+              <h1>Welcome to Easy Money!</h1>
             </div>
             <div className="form-group">
               <label>Email Address</label>
