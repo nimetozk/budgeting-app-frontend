@@ -216,7 +216,7 @@ const UserBankAccount = () => {
                 <div className="clearfix"></div>
               </Form>
               <Button className="btn-fill pull-right" onClick={handleSave}>
-                Add Bank Account
+                Save Bank Account
               </Button>
             </Card.Body>
           </Card>

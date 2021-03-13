@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import service from "../../services/service";
 import { to } from "await-to-js";
+import { errorToString } from "utility";
+import { toast } from "react-toastify";
 
 const SelectBank = (props) => {
   const { value, onBankChange, allBanks, disabled } = props;
@@ -10,7 +12,7 @@ const SelectBank = (props) => {
   useEffect(async () => {
     const [error, response] = await to(service.getBankList());
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
       return;
     }
 

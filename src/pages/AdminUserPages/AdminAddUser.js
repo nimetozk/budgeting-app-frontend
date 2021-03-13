@@ -5,6 +5,8 @@ import { to } from "await-to-js";
 import { useConfirmation } from "../../components/Dialog/dialog-provider";
 import Box from "../../components/Box";
 import { Row, Card, Col, Form, Button } from "react-bootstrap";
+import { errorToString } from "utility";
+import { toast } from "react-toastify";
 
 const AdminUserPage = () => {
   const history = useHistory();
@@ -25,7 +27,7 @@ const AdminUserPage = () => {
     if (id && id !== "0") {
       const [error, response] = await to(service.getUserById(id));
       if (error) {
-        alert(error);
+        toast.error(errorToString(error));
         return;
       }
 
@@ -60,13 +62,13 @@ const AdminUserPage = () => {
     if (formStatus === "edit") {
       const [error, response] = await to(service.updateUser(entity));
       if (error) {
-        alert("error" + error.message ?? "");
+        toast.error(errorToString(error));
         return;
       }
     } else {
       const [error, response] = await to(service.insertUser(entity));
       if (error) {
-        alert("error" + error.message ?? "");
+        toast.error(errorToString(error));
         return;
       }
     }
@@ -146,7 +148,7 @@ const AdminUserPage = () => {
               </Col>
             </Row>
             <Box>
-              <Button onClick={handleSave}>Add User</Button>
+              <Button onClick={handleSave}>Save User</Button>
             </Box>
           </Card.Body>
         </Card>

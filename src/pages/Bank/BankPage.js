@@ -5,6 +5,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { to } from "await-to-js";
 import SelectBank from "../../components/Controls/SelectionBank";
 import { useConfirmation } from "../../components/Dialog/dialog-provider";
+import { toast } from "react-toastify";
+import { errorToString } from "utility";
 
 const BankPage = () => {
   const history = useHistory();
@@ -19,8 +21,9 @@ const BankPage = () => {
   useEffect(async () => {
     if (id && id !== "0") {
       const [error, response] = await to(service.getBankById(id));
+
       if (error) {
-        alert(error);
+        toast.error(errorToString(error));
         return;
       }
 
@@ -77,7 +80,7 @@ const BankPage = () => {
                       placeholder="LLoyds Sutton"
                       type="text"
                     ></Form.Control>
-                    <Button onClick={handleSave}>Add Bank</Button>
+                    <Button onClick={handleSave}>Save Bank</Button>
                   </Form.Group>
                 </Col>
               </Row>

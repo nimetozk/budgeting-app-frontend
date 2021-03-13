@@ -4,6 +4,8 @@ import { Table, Button, Row, Col, Card } from "react-bootstrap";
 import { to } from "await-to-js";
 import service from "../../services/service";
 import Box from "../../components/Box";
+import { toast } from "react-toastify";
+import { errorToString } from "utility";
 
 const BankListPage = () => {
   const [bankList, setBankList] = useState([]);
@@ -11,6 +13,10 @@ const BankListPage = () => {
 
   const getData = async () => {
     const [error, response] = await to(service.getBankList());
+    if (error) {
+      toast.error(errorToString(error));
+      return;
+    }
     setBankList(response.data);
   };
 
