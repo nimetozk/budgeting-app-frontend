@@ -181,6 +181,7 @@ class Service {
   HasAdminRole() {
     const jsonStr = localStorage.getItem("currentUser");
     const currentUser = JSON.parse(jsonStr);
+    if (!currentUser) return false;
     return currentUser.userRoles.includes("ADMIN");
   }
 
