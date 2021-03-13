@@ -10,47 +10,51 @@ import logo from "./logo.png";
 import "./login.css";
 import { toast } from "react-toastify";
 import { errorToString } from "utility";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const history = useHistory();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
 
-  const handleLogin = async () => {
-    let [err, response] = await to(serviceProvider.signin(email, password));
-    if (err) {
-      toast.error(errorToString(err), { position: "top-center" });
+    validationSchema: yup.object().shape({
+      email: yup.string().required().email(),
+      password: yup.string().required(),
+    }),
 
-      return;
-    }
-    localStorage.setItem("token", response.data.token);
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      console.log("buraysi");
+      let [err, response] = await to(
+        serviceProvider.signin(values.email, values.password)
+      );
+      if (err) {
+        toast.error(errorToString(err), { position: "top-center" });
 
-    [err, response] = await to(serviceProvider.getCurrentUser());
-    if (err) {
-      toast.error(errorToString(err), { position: "top-center" });
+        return;
+      }
+      localStorage.setItem("token", response.data.token);
 
-      return;
-    }
+      [err, response] = await to(serviceProvider.getCurrentUser());
+      if (err) {
+        toast.error(errorToString(err), { position: "top-center" });
 
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify({ ...response.data, password: "" })
-    );
+        return;
+      }
 
-    history.push("/dashboard");
-  };
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ ...response.data, password: "" })
+      );
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    event.preventDefault();
-  };
+      history.push("/dashboard");
+    },
+  });
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    event.preventDefault();
-  };
-
-  console.log("email", email);
   return (
     <div className="all-content">
       <div className="sideNav">
@@ -69,9 +73,11 @@ const LoginPage = () => {
             <img className="logo" src={logo} alt="this is the login image" />
           </div>
           <div className="top-bar-reg">
-            <label class="createAccountLabel">Don't have an account? </label>
+            <label className="createAccountLabel">
+              Don't have an account?{" "}
+            </label>
             <Link to="/register">
-              <button class="btn btn-reg" type="button">
+              <button className="btn btn-reg" type="button">
                 Register
               </button>
             </Link>
@@ -86,25 +92,39 @@ const LoginPage = () => {
             <div className="form-group">
               <label>Email Address</label>
               <input
-                value={email}
+                name="email"
+                value={formik.values.email}
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Your Email Address"
-                onChange={handleEmailChange}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               ></input>
+              {formik.errors.email && formik.touched.email && (
+                <label style={{ color: "red" }}>{formik.errors.email}</label>
+              )}
             </div>
             <div className="form-group">
               <label>Password</label>
               <input
-                value={password}
+                name="password"
+                value={formik.values.password}
+                onBlur={formik.handleBlur}
                 type="password"
-                class="form-control"
+                className="form-control"
                 placeholder="********"
-                onChange={handlePasswordChange}
+                onChange={formik.handleChange}
               ></input>
+              {formik.errors.password && formik.touched.password && (
+                <label style={{ color: "red" }}>{formik.errors.password}</label>
+              )}
             </div>
             <div className="login-button">
-              <button class="btn btn-black" type="button" onClick={handleLogin}>
+              <button
+                className="btn btn-black"
+                type="button"
+                onClick={formik.handleSubmit}
+              >
                 Sign In
               </button>
             </div>
