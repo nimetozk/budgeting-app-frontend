@@ -18,9 +18,10 @@ const UserListPage = () => {
   const getData = async () => {
     const [error, response] = await to(service.getUserList());
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
       return;
     }
+
     setUserList(response.data);
   };
 

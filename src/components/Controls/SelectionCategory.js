@@ -2,6 +2,8 @@ import react, { useState, useEffect } from "react";
 import service from "../../services/service";
 import Select from "react-select";
 import { to } from "await-to-js";
+import { errorToString } from "utility";
+import { toast } from "react-toastify";
 
 const SelectionCategory = (props) => {
   const { value, onCategoryChange } = props;
@@ -10,7 +12,7 @@ const SelectionCategory = (props) => {
   useEffect(async () => {
     const [error, response] = await to(service.getCategoryList());
     if (error) {
-      alert(error);
+      toast.error(errorToString(error));
       return;
     }
 

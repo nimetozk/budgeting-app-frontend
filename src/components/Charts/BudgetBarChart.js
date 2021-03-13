@@ -4,6 +4,8 @@ import { to } from "await-to-js";
 import service from "services/service";
 import SelectionYear from "components/Controls/SelectionYear";
 import { Row, Col } from "react-bootstrap";
+import { errorToString } from "utility";
+import { toast } from "react-toastify";
 
 const BudgetBarChart = (props) => {
   const [chartData, setChartData] = useState([]);
@@ -18,10 +20,12 @@ const BudgetBarChart = (props) => {
 
   useEffect(async () => {
     const [monthError, monthResponse] = await getMonthlyData();
+
     if (monthError) {
-      alert(monthError);
+      toast.error(errorToString(monthError));
       return;
     }
+
     if (!monthResponse.data || !monthResponse.data.length) {
       setChartData([]);
       return;
