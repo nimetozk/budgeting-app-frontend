@@ -14,6 +14,9 @@ import validator from "validator";
 import { toast } from "react-toastify";
 import { errorToString } from "utility";
 
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -24,55 +27,55 @@ const RegisterPage = () => {
 
   const [emailError, setEmailError] = useState("");
 
-  const handleRegister = async () => {
-    const [err, response] = await to(
-      serviceProvider.register(
-        firstname,
-        lastname,
-        email,
-        password,
-        phoneNumber
-      )
-    );
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      firstname: "",
+      lastname: "",
+      phoneNumber: "",
+      confirmPassword: "",
+    },
 
-    if (err) {
-      toast.error(errorToString(err), { position: "top-center" });
+    validationSchema: yup.object().shape({
+      firstname: yup.string().required(),
+      lastname: yup.string().required(),
+      email: yup.string().required().email(),
+      phoneNumber: yup.string().required().max(11).min(11),
+      password: yup.string().required("Required"),
+      confirmPassword: yup
+        .string()
+        .required("Required")
+        .when("password", {
+          is: (val) => true, //(val && val.length > 0 ? true : false),
+          then: yup
+            .string()
+            .oneOf([yup.ref("password")], "Both password need to be the same"),
+        }),
+    }),
 
-      return;
-    }
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      const [err, response] = await to(
+        serviceProvider.register(
+          values.firstname,
+          values.lastname,
+          values.email,
+          values.password,
+          values.phoneNumber
+        )
+      );
 
-    localStorage.setItem("token", response.data.token);
-    history.push("/login");
-  };
+      if (err) {
+        toast.error(errorToString(err), { position: "top-center" });
 
-  const handleEmailOnBlur = (event) => {
-    const ok = validator.isEmail(event.target.value);
-    if (!ok) setEmailError("Email is invalid !");
-    else setEmailError("");
-  };
+        return;
+      }
 
-  const handleTextChange = (event) => {
-    switch (event.target.name) {
-      case "password":
-        setPassword(event.target.value);
-        break;
-      case "phoneNumber":
-        setPhoneNumber(event.target.value);
-        break;
-      case "email":
-        setEmail(event.target.value);
-        break;
-      case "lastname":
-        setLastName(event.target.value);
-        break;
-      case "firstname":
-        setFirstName(event.target.value);
-        break;
-
-      default:
-        break;
-    }
-  };
+      localStorage.setItem("token", response.data.token);
+      history.push("/login");
+    },
+  });
 
   return (
     <div className="all-content">
@@ -80,11 +83,11 @@ const RegisterPage = () => {
         <div className="top-bar">
           <div className="top-bar-login">
             <Link to="/login">
-              <button class="btn btn-login" type="button">
+              <button className="btn btn-login" type="button">
                 Sign In
               </button>
             </Link>
-            <label class="loginLabel">Already have an account?</label>
+            <label className="loginLabel">Already have an account?</label>
           </div>
 
           <div className="top-bar-logo">
@@ -102,38 +105,52 @@ const RegisterPage = () => {
                 <div className="form-group">
                   <label>First Name</label>
                   <input
-                    value={firstname}
                     name="firstname"
+                    value={formik.values.firstname}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Your First Name"
-                    onChange={handleTextChange}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   ></input>
-                </div>{" "}
+                  {formik.errors.firstname && formik.touched.firstname && (
+                    <label style={{ color: "red" }}>
+                      {formik.errors.firstname}
+                    </label>
+                  )}
+                </div>
                 <div className="form-group">
                   <label>Last Name</label>
                   <input
-                    value={lastname}
+                    value={formik.values.lastname}
                     name="lastname"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Your Last Name"
-                    onChange={handleTextChange}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   ></input>
-                </div>{" "}
+                  {formik.errors.lastname && formik.touched.lastname && (
+                    <label style={{ color: "red" }}>
+                      {formik.errors.lastname}
+                    </label>
+                  )}
+                </div>
                 <div className="form-group">
                   <label>Email Address</label>
                   <input
-                    value={email}
+                    value={formik.values.email}
                     name="email"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Your Email Address"
-                    onChange={handleTextChange}
-                    onBlur={handleEmailOnBlur}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   ></input>
-                  {emailError && (
-                    <label style={{ color: "red" }}>{emailError}</label>
+                  {formik.errors.email && formik.touched.email && (
+                    <label style={{ color: "red" }}>
+                      {formik.errors.email}
+                    </label>
                   )}
                 </div>
               </div>
@@ -141,30 +158,60 @@ const RegisterPage = () => {
                 <div className="form-group">
                   <label>Phone Number</label>
                   <input
-                    value={phoneNumber}
+                    value={formik.values.phoneNumber}
                     name="phoneNumber"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Your Phone Number"
-                    onChange={handleTextChange}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   ></input>
+                  {formik.errors.phoneNumber && formik.touched.phoneNumber && (
+                    <label style={{ color: "red" }}>
+                      {formik.errors.phoneNumber}
+                    </label>
+                  )}
                 </div>
                 <div className="form-group">
                   <label>Password</label>
                   <input
-                    value={password}
+                    value={formik.values.password}
                     name="password"
                     type="password"
-                    class="form-control"
+                    className="form-control"
                     placeholder="********"
-                    onChange={handleTextChange}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   ></input>
+                  {formik.errors.password && formik.touched.password && (
+                    <label style={{ color: "red" }}>
+                      {formik.errors.password}
+                    </label>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>Confirm Password</label>
+                  <input
+                    value={formik.values.confirmPassword}
+                    name="confirmPassword"
+                    type="password"
+                    className="form-control"
+                    placeholder="********"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  ></input>
+                  {formik.errors.confirmPassword &&
+                    formik.touched.confirmPassword && (
+                      <label style={{ color: "red" }}>
+                        {formik.errors.confirmPassword}
+                      </label>
+                    )}
                 </div>
                 <div className="reg-button">
                   <button
-                    class="btn btn-black"
+                    className="btn btn-black"
                     type="button"
-                    onClick={handleRegister}
+                    onClick={formik.handleSubmit}
                   >
                     Register
                   </button>
