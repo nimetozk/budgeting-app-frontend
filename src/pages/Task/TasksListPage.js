@@ -45,7 +45,7 @@ const TaskListPage = () => {
                     borderColor: "white",
                   }}
                 >
-                  Add Task
+                  Add New Task
                 </Button>
               </Box>
               <Table striped bordered hover size="sm">
