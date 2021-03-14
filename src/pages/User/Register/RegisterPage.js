@@ -38,11 +38,14 @@ const RegisterPage = () => {
     },
 
     validationSchema: yup.object().shape({
-      firstname: yup.string().required(),
-      lastname: yup.string().required(),
-      email: yup.string().required().email(),
-      phoneNumber: yup.string().required().max(11).min(11),
-      password: yup.string().required("Required"),
+      firstname: yup.string().required("Required"),
+      lastname: yup.string().required("Required"),
+      email: yup.string().required("Required").email(),
+      phoneNumber: yup.string().required("Required").max(11).min(11),
+      password: yup
+        .string()
+        .required("Required")
+        .min(8, "Password must contain more then 8 characters!"),
       confirmPassword: yup
         .string()
         .required("Required")

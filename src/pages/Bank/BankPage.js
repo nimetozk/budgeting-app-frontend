@@ -3,10 +3,11 @@ import { Row, Container, Card, Col, Form, Button } from "react-bootstrap";
 import service from "services/service";
 import { useHistory, useParams } from "react-router-dom";
 import { to } from "await-to-js";
-import SelectBank from "../../components/Controls/SelectionBank";
 import { useConfirmation } from "../../components/Dialog/dialog-provider";
 import { toast } from "react-toastify";
 import { errorToString } from "utility";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const BankPage = () => {
   const history = useHistory();
@@ -31,36 +32,41 @@ const BankPage = () => {
     }
   }, []);
 
-  const handleChange = (event) => {
-    setEntity({ ...entity, name: event.target.value });
-  };
+  const formik = useFormik({
+    initialValues: {
+      _id: entity._id,
+      name: entity.name,
+    },
 
-  const confirmBankSave = async () => {
-    if (formStatus === "new") {
-      const [error, response] = await to(service.insertBank(entity));
-      if (error) {
-        alert("errror" + error.message ?? "");
-        return;
-      }
-    } else {
-      const [error, response] = await to(service.updateBank(entity));
-      if (error) {
-        alert("errror" + error.message ?? "");
-        return;
-      }
-    }
+    validationSchema: yup.object().shape({
+      name: yup.string().required(),
+    }),
 
-    history.replace("/banks");
-  };
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      const entity = { ...values };
+      confirm({
+        title: "Save Bank",
+        description: "Are you sure you want to save ?",
+      }).then(async () => {
+        if (formStatus === "new") {
+          const [error, response] = await to(service.insertBank(entity));
+          if (error) {
+            alert("errror" + error.message ?? "");
+            return;
+          }
+        } else {
+          const [error, response] = await to(service.updateBank(entity));
+          if (error) {
+            alert("errror" + error.message ?? "");
+            return;
+          }
+        }
 
-  const handleSave = async () => {
-    confirm({
-      title: "Add Bank",
-      description: "Are you sure you want to add new bank ?",
-    }).then(() => {
-      confirmBankSave();
-    });
-  };
+        history.replace("/banks");
+      });
+    },
+  });
 
   return (
     <div>
@@ -75,13 +81,20 @@ const BankPage = () => {
                     <label>Bank Name:</label>
                     <Form.Control
                       style={{ marginBottom: "10px" }}
-                      value={entity.name}
-                      onChange={handleChange}
+                      name="name"
+                      value={formik.values.name}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       placeholder="LLoyds Sutton"
                       type="text"
                     ></Form.Control>
-                    <Button onClick={handleSave}>Save Bank</Button>
+                    {formik.errors.name && formik.touched.name && (
+                      <label style={{ color: "red" }}>
+                        {formik.errors.name}
+                      </label>
+                    )}
                   </Form.Group>
+                  <Button onClick={formik.handleSubmit}>Save Bank</Button>
                 </Col>
               </Row>
             </Card.Body>

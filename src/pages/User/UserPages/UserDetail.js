@@ -4,6 +4,9 @@ import { useConfirmation } from "components/Dialog/dialog-provider";
 import service from "../../../services/service";
 import { to } from "await-to-js";
 import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { errorToString } from "utility";
 
 const UserDetail = () => {
   const [entity, setEntity] = useState({
@@ -13,8 +16,48 @@ const UserDetail = () => {
     password: "",
     phoneNumber: "",
   });
-
   const confirm = useConfirmation();
+
+  const formik = useFormik({
+    initialValues: {
+      _id: entity._id,
+      firstname: entity.firstname,
+      lastname: entity.lastname,
+      email: entity.email,
+      phoneNumber: entity.phoneNumber,
+      password: entity.password,
+    },
+
+    validationSchema: yup.object().shape({
+      firstname: yup.string().required("Required"),
+      lastname: yup.string().required("Required"),
+      email: yup.string().required("Required").email(),
+      phoneNumber: yup.string().required("Required").max(11).min(11),
+      password: yup.string().required("Required"),
+    }),
+
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      const entity = { ...values };
+
+      confirm({
+        title: "Update User Details",
+        description: "Are you sure you want to update your details ?",
+      }).then(async () => {
+        const [error, response] = await to(service.updateUser(entity));
+        if (error) {
+          toast.error(errorToString(error));
+          return;
+        }
+
+        setEntity(response.data);
+
+        toast.success(" Your details are successfully updated! ", {
+          delay: 100,
+        });
+      });
+    },
+  });
 
   const getCurrentUser = async () => {
     const [error, response] = await to(service.getCurrentUser());
@@ -25,51 +68,51 @@ const UserDetail = () => {
     getCurrentUser();
   }, []);
 
-  const handleChange = (event) => {
-    switch (event.target.name) {
-      case "firstname":
-        setEntity({ ...entity, firstname: event.target.value });
-        break;
-      case "lastname":
-        setEntity({ ...entity, lastname: event.target.value });
-        break;
-      case "email":
-        setEntity({ ...entity, email: event.target.value });
-        break;
-      case "phoneNumber":
-        setEntity({ ...entity, phoneNumber: event.target.value });
-        break;
-      case "password":
-        setEntity({ ...entity, password: event.target.value });
-        break;
+  // const handleChange = (event) => {
+  //   switch (event.target.name) {
+  //     case "firstname":
+  //       setEntity({ ...entity, firstname: event.target.value });
+  //       break;
+  //     case "lastname":
+  //       setEntity({ ...entity, lastname: event.target.value });
+  //       break;
+  //     case "email":
+  //       setEntity({ ...entity, email: event.target.value });
+  //       break;
+  //     case "phoneNumber":
+  //       setEntity({ ...entity, phoneNumber: event.target.value });
+  //       break;
+  //     case "password":
+  //       setEntity({ ...entity, password: event.target.value });
+  //       break;
 
-      default:
-        break;
-    }
-  };
+  //     default:
+  //       break;
+  //   }
+  // };
 
-  const updateUserDetails = async (event) => {
-    event.preventDefault();
-    const [error, response] = await to(service.updateUser(entity));
-    if (error) {
-      toast.error(errorToString(error));
-      return;
-    }
+  // const updateUserDetails = async (event) => {
+  //   event.preventDefault();
+  //   const [error, response] = await to(service.updateUser(entity));
+  //   if (error) {
+  //     toast.error(errorToString(error));
+  //     return;
+  //   }
 
-    setEntity(response.data);
-  };
+  //   setEntity(response.data);
+  // };
 
-  const handleUpdate = async (event) => {
-    confirm({
-      title: "Update User Details",
-      description: "Are you sure you want to update your details ?",
-    }).then(() => {
-      updateUserDetails(event);
-      toast.success(" Your details are successfully updated! ", {
-        delay: 1000,
-      });
-    });
-  };
+  // const handleUpdate = async (event) => {
+  //   confirm({
+  //     title: "Update User Details",
+  //     description: "Are you sure you want to update your details ?",
+  //   }).then(() => {
+  //     updateUserDetails(event);
+  //     toast.success(" Your details are successfully updated! ", {
+  //       delay: 1000,
+  //     });
+  //   });
+  // };
 
   return (
     <Container fluid>
@@ -86,9 +129,15 @@ const UserDetail = () => {
                         placeholder="First Name"
                         type="text"
                         name="firstname"
-                        value={entity.firstname}
-                        onChange={handleChange}
+                        value={formik.values.firstname}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       ></Form.Control>
+                      {formik.errors.firstname && formik.touched.firstname && (
+                        <label style={{ color: "red" }}>
+                          {formik.errors.firstname}
+                        </label>
+                      )}
                     </Form.Group>
                   </Col>
                   <Col className="pl" md="6">
@@ -98,9 +147,15 @@ const UserDetail = () => {
                         placeholder="Last Name"
                         type="text"
                         name="lastname"
-                        value={entity.lastname}
-                        onChange={handleChange}
+                        value={formik.values.lastname}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       ></Form.Control>
+                      {formik.errors.lastname && formik.touched.lastname && (
+                        <label style={{ color: "red" }}>
+                          {formik.errors.lastname}
+                        </label>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -112,9 +167,15 @@ const UserDetail = () => {
                         placeholder="Email"
                         type="text"
                         name="email"
-                        value={entity.email}
-                        onChange={handleChange}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       ></Form.Control>
+                      {formik.errors.email && formik.touched.email && (
+                        <label style={{ color: "red" }}>
+                          {formik.errors.email}
+                        </label>
+                      )}
                     </Form.Group>
                   </Col>
                   <Col className="pl" md="4">
@@ -124,9 +185,16 @@ const UserDetail = () => {
                         placeholder="Phone Number"
                         type="text"
                         name="phoneNumber"
-                        value={entity.phoneNumber}
-                        onChange={handleChange}
+                        value={formik.values.phoneNumber}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       ></Form.Control>
+                      {formik.errors.phoneNumber &&
+                        formik.touched.phoneNumber && (
+                          <label style={{ color: "red" }}>
+                            {formik.errors.phoneNumber}
+                          </label>
+                        )}
                     </Form.Group>
                   </Col>
                   <Col className="pl" md="4">
@@ -136,14 +204,23 @@ const UserDetail = () => {
                         placeholder="*******"
                         type="password"
                         name="password"
-                        value={entity.password}
-                        onChange={handleChange}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                       ></Form.Control>
+                      {formik.errors.password && formik.touched.password && (
+                        <label style={{ color: "red" }}>
+                          {formik.errors.password}
+                        </label>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
 
-                <Button className="btn-fill pull-right" onClick={handleUpdate}>
+                <Button
+                  className="btn-fill pull-right"
+                  onClick={formik.handleSubmit}
+                >
                   Update Profile
                 </Button>
                 <div className="clearfix"></div>

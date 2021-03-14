@@ -5,13 +5,16 @@ import { to } from "await-to-js";
 import { useConfirmation } from "../../components/Dialog/dialog-provider";
 import Box from "../../components/Box";
 import { Row, Card, Col, Form, Button } from "react-bootstrap";
-import { errorToString } from "utility";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { toast } from "react-toastify";
+import { errorToString } from "../../utility";
 
 const AdminUserPage = () => {
   const history = useHistory();
   const params = useParams();
   const [entity, setEntity] = useState({
+    _id: "",
     firstname: "",
     lastname: "",
     email: "",
@@ -28,6 +31,7 @@ const AdminUserPage = () => {
       const [error, response] = await to(service.getUserById(id));
       if (error) {
         toast.error(errorToString(error));
+
         return;
       }
 
@@ -35,55 +39,53 @@ const AdminUserPage = () => {
     }
   }, []);
 
-  const handleChange = (event) => {
-    switch (event.target.name) {
-      case "firstname":
-        setEntity({ ...entity, firstname: event.target.value });
-        break;
-      case "lastname":
-        setEntity({ ...entity, lastname: event.target.value });
-        break;
-      case "email":
-        setEntity({ ...entity, email: event.target.value });
-        break;
-      case "phoneNumber":
-        setEntity({ ...entity, phoneNumber: event.target.value });
-        break;
-      case "password":
-        setEntity({ ...entity, password: event.target.value });
-        break;
+  const formik = useFormik({
+    initialValues: {
+      _id: entity._id,
+      email: entity.email,
+      password: entity.password,
+      firstname: entity.firstname,
+      lastname: entity.lastname,
+      phoneNumber: entity.phoneNumber,
+      userRole: entity.userRole,
+    },
 
-      default:
-        break;
-    }
-  };
+    validationSchema: yup.object().shape({
+      firstname: yup.string().required("Required"),
+      lastname: yup.string().required("Required"),
+      email: yup.string().required("Required").email(),
+      phoneNumber: yup.string().required("Required").max(11).min(11),
+      password: yup.string().required("Required"),
+      userRole: yup.string(),
+    }),
 
-  const confirmUserSave = async () => {
-    if (formStatus === "edit") {
-      const [error, response] = await to(service.updateUser(entity));
-      if (error) {
-        toast.error(errorToString(error));
-        return;
-      }
-    } else {
-      const [error, response] = await to(service.insertUser(entity));
-      if (error) {
-        toast.error(errorToString(error));
-        return;
-      }
-    }
+    enableReinitialize: true,
 
-    history.replace("/users");
-  };
+    onSubmit: async (values) => {
+      const user = { ...values };
 
-  const handleSave = async () => {
-    confirm({
-      title: "Add User",
-      description: "Are you sure you want to add a new user ?",
-    }).then(() => {
-      confirmUserSave();
-    });
-  };
+      confirm({
+        title: "Add User",
+        description: "Are you sure you want to add a new user?",
+      }).then(async () => {
+        if (formStatus === "edit") {
+          const [error, response] = await to(service.updateUser(user));
+          if (error) {
+            toast.error(errorToString(error));
+            return;
+          }
+        } else {
+          const [error, response] = await to(service.insertUser(user));
+          if (error) {
+            toast.error(errorToString(error));
+            return;
+          }
+        }
+
+        history.replace("/users");
+      });
+    },
+  });
 
   return (
     <Row>
@@ -100,9 +102,15 @@ const AdminUserPage = () => {
                   placeholder="First Name"
                   type="text"
                   name="firstname"
-                  value={entity.firstname}
-                  onChange={handleChange}
+                  value={formik.values.firstname}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Form.Control>
+                {formik.errors.firstname && formik.touched.firstname && (
+                  <label style={{ color: "red" }}>
+                    {formik.errors.firstname}
+                  </label>
+                )}
               </Col>
               <Col className="pl" md="6">
                 <label>Last Name</label>
@@ -110,9 +118,15 @@ const AdminUserPage = () => {
                   placeholder="Last Name"
                   type="text"
                   name="lastname"
-                  value={entity.lastname}
-                  onChange={handleChange}
+                  value={formik.values.lastname}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Form.Control>
+                {formik.errors.lastname && formik.touched.lastname && (
+                  <label style={{ color: "red" }}>
+                    {formik.errors.lastname}
+                  </label>
+                )}
               </Col>
             </Row>
             <Row>
@@ -122,9 +136,13 @@ const AdminUserPage = () => {
                   placeholder="Email"
                   type="text"
                   name="email"
-                  value={entity.email}
-                  onChange={handleChange}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Form.Control>
+                {formik.errors.email && formik.touched.email && (
+                  <label style={{ color: "red" }}>{formik.errors.email}</label>
+                )}
               </Col>
               <Col className="pl" md="4">
                 <label>Phone Number</label>
@@ -132,9 +150,15 @@ const AdminUserPage = () => {
                   placeholder="Phone Number"
                   type="text"
                   name="phoneNumber"
-                  value={entity.phoneNumber}
-                  onChange={handleChange}
+                  value={formik.values.phoneNumber}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Form.Control>
+                {formik.errors.phoneNumber && formik.touched.phoneNumber && (
+                  <label style={{ color: "red" }}>
+                    {formik.errors.phoneNumber}
+                  </label>
+                )}
               </Col>
               <Col className="pl" md="4">
                 <label>Password</label>
@@ -142,13 +166,19 @@ const AdminUserPage = () => {
                   placeholder="*******"
                   type="password"
                   name="password"
-                  value={entity.password}
-                  onChange={handleChange}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 ></Form.Control>
+                {formik.errors.password && formik.touched.password && (
+                  <label style={{ color: "red" }}>
+                    {formik.errors.password}
+                  </label>
+                )}
               </Col>
             </Row>
             <Box>
-              <Button onClick={handleSave}>Save User</Button>
+              <Button onClick={formik.handleSubmit}>Save User</Button>
             </Box>
           </Card.Body>
         </Card>

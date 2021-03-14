@@ -22,13 +22,12 @@ const LoginPage = () => {
     },
 
     validationSchema: yup.object().shape({
-      email: yup.string().required().email(),
-      password: yup.string().required(),
+      email: yup.string().required("Required").email(),
+      password: yup.string().required("Required"),
     }),
 
     enableReinitialize: true,
     onSubmit: async (values) => {
-      console.log("buraysi");
       let [err, response] = await to(
         serviceProvider.signin(values.email, values.password)
       );
