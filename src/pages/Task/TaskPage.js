@@ -92,7 +92,7 @@ const TaskPage = () => {
   const handleSave = async () => {
     confirm({
       title: "Save Task",
-      description: "Are you sure ?",
+      description: "Do you want to process?",
     }).then(() => {
       confirmSave();
     });
@@ -239,7 +239,7 @@ const TaskPage = () => {
                     </Col>
                     <Col className="pr" md="4">
                       <Form.Group>
-                        <label>Bank Account Description:</label>
+                        <label>Sort Code | Account Number:</label>
                         <SelectionBankAccount
                           disabled={bankInfoDisabled}
                           value={bankAccountOption}
