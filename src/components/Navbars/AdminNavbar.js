@@ -18,9 +18,7 @@
 import React, { Component } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
-
 import routes from "routes.js";
-import { roundWithPrecision } from "chartist";
 
 function Header() {
   const location = useLocation();
@@ -41,6 +39,7 @@ function Header() {
   const getBrandText = () => {
     for (let i = 0; i < routes.length; i++) {
       if (location.pathname.indexOf(routes[i].path) !== -1) {
+        // console.log("path", routes[i].path);
         return routes[i].title;
       }
     }
@@ -76,7 +75,7 @@ function Header() {
           <Nav className="nav mr-auto" navbar></Nav>
           <Nav className="ml-auto" navbar>
             <Nav.Item>
-              <Nav.Link className="m-0" href="#pablo" onClick={handleLogOut}>
+              <Nav.Link className="m-0" onClick={handleLogOut}>
                 <span className="no-icon">Log out</span>
               </Nav.Link>
             </Nav.Item>
