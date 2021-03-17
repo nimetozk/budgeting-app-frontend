@@ -29,9 +29,6 @@
     "validator": "^13.5.2",
     "yup": "^0.32.9"
   },
-  "engines": {
-    "node": ">=14.15.4"
-  },
   "optionalDependencies": {
     "jquery": "3.5.1",
     "reactstrap": "8.9.0",

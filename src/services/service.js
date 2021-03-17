@@ -2,7 +2,8 @@ import axios from "axios";
 import { to } from "await-to-js";
 
 const httpClient = axios.create({
-  baseURL: process.env.REACT_APP_API || "http://localhost:4000",
+  baseURL: "https://nimet-budget-api.herokuapp.com",
+  //baseURL: "http://localhost:4000",
 });
 
 class Service {
