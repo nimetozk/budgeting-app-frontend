@@ -86,10 +86,10 @@ const LoginPage = () => {
         <div className="main">
           <form>
             <div className="main-title">
-              <h1>Welcome to Easy Money!</h1>
+              <h1>Welcome to QuickLook!</h1>
             </div>
             <div className="form-group">
-              <label for="email">Email Address</label>
+              <label htmlFor="email">Email Address</label>
               <input
                 name="email"
                 value={formik.values.email}
@@ -104,7 +104,7 @@ const LoginPage = () => {
               )}
             </div>
             <div className="form-group">
-              <label for="password">Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 name="password"
                 value={formik.values.password}
