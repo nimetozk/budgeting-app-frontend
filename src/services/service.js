@@ -3,7 +3,7 @@ import { to } from "await-to-js";
 
 const httpClient = axios.create({
   baseURL: "https://nimet-budget-api.herokuapp.com",
-  //baseURL: "http://localhost:4000",
+  // baseURL: "http://localhost:4000",
 });
 
 class Service {
@@ -188,14 +188,16 @@ class Service {
     return currentUser.userRoles.includes("ADMIN");
   }
 
-  async IsAuthenticated() {
+  IsAuthenticated() {
     const token = localStorage.getItem("token");
     if (!token) return false;
 
+    /*
     const [err, response] = await to(this.getCurrentUser());
     if (err) {
       return false;
     }
+    */
 
     return true;
   }

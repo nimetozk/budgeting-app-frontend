@@ -32,6 +32,7 @@ import RegisterPage from "pages/User/Register/RegisterPage";
 import { ConfirmationServiceProvider } from "./components/Dialog/dialog-provider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrivateRoute from "./components/PrivateRoute";
 
 toast.configure();
 
@@ -45,6 +46,7 @@ ReactDOM.render(
         <Route path="/register">
           <RegisterPage></RegisterPage>
         </Route>
+
         <Route path="/" render={(props) => <AdminLayout {...props} />} />
 
         {/*

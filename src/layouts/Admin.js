@@ -16,7 +16,7 @@
 
 */
 import React, { Component } from "react";
-import { useLocation, Route, Switch } from "react-router-dom";
+import { useLocation, Switch, Redirect } from "react-router-dom";
 
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
@@ -30,8 +30,9 @@ import routes from "routes.js";
 
 import sidebarImage from "assets/img/sidebar-3.jpg";
 import AdminUserPage from "pages/AdminUserPages/AdminAddUser";
+import PrivateRoute from "components/PrivateRoute";
 
-function Admin() {
+function Admin(props) {
   const [image, setImage] = React.useState(sidebarImage);
   const [color, setColor] = React.useState("black");
   const [hasImage, setHasImage] = React.useState(true);
@@ -41,12 +42,9 @@ function Admin() {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
-          <Route
-            exact
-            path={prop.path}
-            render={(props) => <prop.component {...props} />}
-            key={key}
-          />
+          <PrivateRoute exact path={prop.path} key={key}>
+            <prop.component {...props} />
+          </PrivateRoute>
         );
       } else {
         return null;
@@ -66,6 +64,12 @@ function Admin() {
       element.parentNode.removeChild(element);
     }
   }, [location]);
+
+  if (location.pathname === "/") {
+    //  return <Redirect from="/" to="/dashboard" />;
+    window.location.href = "/dashboard";
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -75,15 +79,15 @@ function Admin() {
           <div className="content">
             <Switch>
               {getRoutes(routes)}
-              <Route exact path="/tasks/formStatus/:formStatus/id/:id">
+              <PrivateRoute exact path="/tasks/formStatus/:formStatus/id/:id">
                 <TaskPage></TaskPage>
-              </Route>
-              <Route exact path="/banks/formStatus/:formStatus/id/:id">
+              </PrivateRoute>
+              <PrivateRoute exact path="/banks/formStatus/:formStatus/id/:id">
                 <BankPage></BankPage>
-              </Route>
-              <Route exact path="/users/formStatus/:formStatus/id/:id">
+              </PrivateRoute>
+              <PrivateRoute exact path="/users/formStatus/:formStatus/id/:id">
                 <AdminUserPage></AdminUserPage>
-              </Route>
+              </PrivateRoute>
             </Switch>
           </div>
           <Footer />
