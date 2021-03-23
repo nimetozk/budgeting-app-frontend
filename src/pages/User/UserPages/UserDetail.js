@@ -68,52 +68,6 @@ const UserDetail = () => {
     getCurrentUser();
   }, []);
 
-  // const handleChange = (event) => {
-  //   switch (event.target.name) {
-  //     case "firstname":
-  //       setEntity({ ...entity, firstname: event.target.value });
-  //       break;
-  //     case "lastname":
-  //       setEntity({ ...entity, lastname: event.target.value });
-  //       break;
-  //     case "email":
-  //       setEntity({ ...entity, email: event.target.value });
-  //       break;
-  //     case "phoneNumber":
-  //       setEntity({ ...entity, phoneNumber: event.target.value });
-  //       break;
-  //     case "password":
-  //       setEntity({ ...entity, password: event.target.value });
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // const updateUserDetails = async (event) => {
-  //   event.preventDefault();
-  //   const [error, response] = await to(service.updateUser(entity));
-  //   if (error) {
-  //     toast.error(errorToString(error));
-  //     return;
-  //   }
-
-  //   setEntity(response.data);
-  // };
-
-  // const handleUpdate = async (event) => {
-  //   confirm({
-  //     title: "Update User Details",
-  //     description: "Are you sure you want to update your details ?",
-  //   }).then(() => {
-  //     updateUserDetails(event);
-  //     toast.success(" Your details are successfully updated! ", {
-  //       delay: 1000,
-  //     });
-  //   });
-  // };
-
   return (
     <Container fluid>
       <Row>

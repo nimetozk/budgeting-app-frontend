@@ -18,6 +18,7 @@ const TaskPage = () => {
     value: "",
     label: "",
   });
+
   const [entity, setEntity] = useState({
     id: "",
     name: "",
@@ -47,6 +48,7 @@ const TaskPage = () => {
       value: response.data.refBankAccount.refBank._id,
       label: response.data.refBankAccount.refBank.name,
     });
+
     setBankAccountOption({
       value: response.data.refBankAccount._id,
       label: `${response.data.refBankAccount.sortCode} ${response.data.refBankAccount.accountNo}`,
@@ -280,6 +282,7 @@ const TaskPage = () => {
           <TransactionsTable
             transactions={transactions}
             onTransactionChange={handleTransactionChange}
+            // currency={currency}
           ></TransactionsTable>
         )}
       </Container>
