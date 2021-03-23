@@ -2,8 +2,8 @@ import axios from "axios";
 import { to } from "await-to-js";
 
 const httpClient = axios.create({
-  baseURL: "https://nimet-budget-api.herokuapp.com",
-  // baseURL: "http://localhost:4000",
+  // baseURL: "https://nimet-budget-api.herokuapp.com",
+  baseURL: "http://localhost:4000",
 });
 
 class Service {
@@ -192,14 +192,25 @@ class Service {
     const token = localStorage.getItem("token");
     if (!token) return false;
 
-    /*
-    const [err, response] = await to(this.getCurrentUser());
-    if (err) {
-      return false;
-    }
-    */
-
     return true;
+  }
+
+  getTransactionByIId(transactionId) {
+    return httpClient.get(`/api/transaction/${"transactionId"}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  getPlaceLabels() {
+    return httpClient.get(`/api/placeLabel`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  savePlaceLabel(placelabel) {
+    return httpClient.post(`/api/placeLabel`, placelabel, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
   }
 }
 

@@ -20,6 +20,7 @@ import UserProfile from "./pages/User/UserPages/UserProfile";
 import TaskListPage from "pages/Task/TasksListPage";
 import BankListPage from "pages/Bank/BankListPage";
 import UserList from "pages/AdminUserPages/AdminUserList";
+import AddLocation from "pages/Transaction/TransactionAddLocation";
 
 const dashboardRoutes = [
   {
@@ -60,6 +61,14 @@ const dashboardRoutes = [
     icon: "nc-icon nc-notes",
     component: UserList,
     title: "List of Users",
+    layout: "/admin",
+  },
+  {
+    path: "/transaction",
+    name: "Transactions",
+    icon: "nc-icon nc-notes",
+    component: AddLocation,
+    title: "Add Location",
     layout: "/admin",
   },
 ];

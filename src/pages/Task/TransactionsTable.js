@@ -1,14 +1,17 @@
 import react from "react";
-
 import { Row, Table, Col, Card } from "react-bootstrap";
 import SelectionCategory from "components/Controls/SelectionCategory";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { CardBody } from "reactstrap";
+import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 moment.locale("en-gb");
 
 const TransactionsTable = ({ transactions, onTransactionChange }) => {
+  const history = useHistory();
+
   const handleCategoryChange = (option, index) => {
     console.log("combo change", option, index);
     const transaction = { ...transactions[index] };
@@ -17,6 +20,11 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
     toast.success("Category is updated!", { delay: 0 });
   };
 
+  const handleAddLocation = (transactionId) => {
+    // history.replace("/tasks/formStatus/location/id/" + transactionId);
+  };
+
+  console.log("transactions", transactions);
   return (
     <div>
       <Row>
@@ -33,6 +41,7 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
                     <th>Amount</th>
                     <th>External Code</th>
                     <th>Description</th>
+                    <th>Location</th>
                     <th>Category</th>
                   </tr>
                 </thead>
@@ -49,6 +58,20 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
                       <td>{transaction.transactionAmount}</td>
                       <td>{transaction.externalCode}</td>
                       <td>{transaction.description}</td>
+                      <td
+                        style={{
+                          padding: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <Button
+                          size="sm"
+                          onClick={() => handleAddLocation(transaction._id)}
+                        >
+                          Add Location
+                        </Button>
+                      </td>
                       <td style={{ width: "300px" }}>
                         <SelectionCategory
                           value={{
