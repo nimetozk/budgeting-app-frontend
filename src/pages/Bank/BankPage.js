@@ -47,7 +47,7 @@ const BankPage = () => {
       const entity = { ...values };
       confirm({
         title: "Save Bank",
-        description: "Are you sure you want to save ?",
+        description: "Are you sure you want to save this bank?",
       }).then(async () => {
         if (formStatus === "new") {
           const [error, response] = await to(service.insertBank(entity));

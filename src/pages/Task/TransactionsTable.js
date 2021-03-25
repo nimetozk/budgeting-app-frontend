@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { CardBody } from "reactstrap";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import MapButtonEdit from "components/Map/MapButtonEdit";
 
 moment.locale("en-gb");
 
@@ -13,15 +14,15 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
   const history = useHistory();
 
   const handleCategoryChange = (option, index) => {
-    console.log("combo change", option, index);
     const transaction = { ...transactions[index] };
     transaction.refCategory = { _id: option.value, name: option.label };
     onTransactionChange(transaction, index);
-    toast.success("Category is updated!", { delay: 0 });
   };
 
-  const handleAddLocation = (transactionId) => {
-    // history.replace("/tasks/formStatus/location/id/" + transactionId);
+  const handlePlaceLabelChange = (placeLabel, index) => {
+    const transaction = { ...transactions[index] };
+    transaction.refPlaceLabel = placeLabel;
+    onTransactionChange(transaction, index);
   };
 
   console.log("transactions", transactions);
@@ -65,12 +66,14 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
                           flexDirection: "column",
                         }}
                       >
-                        <Button
-                          size="sm"
-                          onClick={() => handleAddLocation(transaction._id)}
-                        >
-                          Add Location
-                        </Button>
+                        <Row>
+                          <MapButtonEdit
+                            onPlaceLabelChanged={(placeLabel) =>
+                              handlePlaceLabelChange(placeLabel, index)
+                            }
+                            placeLabel={transaction.refPlaceLabel}
+                          ></MapButtonEdit>
+                        </Row>
                       </td>
                       <td style={{ width: "300px" }}>
                         <SelectionCategory

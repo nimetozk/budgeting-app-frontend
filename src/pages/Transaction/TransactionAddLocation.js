@@ -6,6 +6,15 @@ import { errorToString } from "utility";
 import MapButtonEdit from "../../components/Map/MapButtonEdit";
 
 const TransactionsAddLocation = () => {
+  const [placeLabel, setPlaceLabel] = useState({
+    name: "new",
+    location: { type: "Point", coordinates: [-0.21, 51.5] },
+  });
+
+  const handlePlaceLabelChange = (newPlaceLabel) => {
+    setPlaceLabel(newPlaceLabel);
+  };
+
   return (
     <div>
       <Row>
@@ -139,10 +148,8 @@ const TransactionsAddLocation = () => {
               </Row>
               <Row>
                 <MapButtonEdit
-                  placeLabel={{
-                    name: "",
-                    location: { type: "Point", coordinates: [-0.21, 51.5] },
-                  }}
+                  onPlaceLabelChanged={handlePlaceLabelChange}
+                  placeLabel={placeLabel}
                 ></MapButtonEdit>
               </Row>
             </Card.Body>

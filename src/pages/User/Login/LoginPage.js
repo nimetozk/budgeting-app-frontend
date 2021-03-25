@@ -1,8 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import serviceProvider from "../../../services/service";
 import { to } from "await-to-js";
 import loginImage from "./login.jpg";
@@ -12,7 +10,7 @@ import { toast } from "react-toastify";
 import { errorToString } from "utility";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
+import { Carousel } from "react-bootstrap";
 const LoginPage = () => {
   const history = useHistory();
   const formik = useFormik({
