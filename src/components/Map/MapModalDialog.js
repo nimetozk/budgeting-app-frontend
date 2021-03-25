@@ -5,6 +5,7 @@ import LabelMapping from "./LabelMapping";
 import Modal from "react-bootstrap/Modal";
 import Draggable from "react-draggable";
 import ModalDialog from "react-bootstrap/ModalDialog";
+import { toast } from "react-toastify";
 
 class DraggableModalDialog extends React.Component {
   render() {
@@ -16,13 +17,7 @@ class DraggableModalDialog extends React.Component {
   }
 }
 
-export const MapModalDialog = ({
-  open,
-  title,
-  placeLabel,
-  onSubmit,
-  onClose,
-}) => {
+export const MapModalDialog = ({ open, placeLabel, onSubmit, onClose }) => {
   const [placeLabelIn, setPlaceLabelIn] = useState(
     placeLabel ?? {
       name: "",
@@ -34,10 +29,18 @@ export const MapModalDialog = ({
     setPlaceLabelIn(newPlaceLabel);
   };
 
+  const handleOk = () => {
+    if (!placeLabelIn || !placeLabelIn.name) {
+      toast.error("invalid place label !");
+      return;
+    }
+    onSubmit(placeLabelIn);
+  };
+
   return (
     <Modal show={open} size="lg" dialogAs={DraggableModalDialog}>
       <Modal.Header>
-        <Modal.Title>{title || ""}</Modal.Title>
+        <Modal.Title>{"Location Information"}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -46,12 +49,11 @@ export const MapModalDialog = ({
           onPlaceLabelChange={handlePlaceLabelChange}
         ></LabelMapping>
       </Modal.Body>
-
       <Modal.Footer>
         <Button color="secondry" onClick={onClose}>
           Cancel
         </Button>
-        <Button className="ok-btn" onClick={() => onSubmit(placeLabelIn)}>
+        <Button className="ok-btn" onClick={handleOk}>
           Ok
         </Button>
       </Modal.Footer>

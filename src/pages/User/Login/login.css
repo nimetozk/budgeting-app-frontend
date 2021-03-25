@@ -33,12 +33,13 @@ body {
 
 .loginImage {
   opacity: 0.4;
+  height: 855px;
 }
 
 .right-content {
   display: flex;
   width: 1200px;
-  height: 720px;
+  height: 855px;
   display: flex;
   flex-direction: column;
 }

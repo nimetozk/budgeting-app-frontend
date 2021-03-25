@@ -146,8 +146,8 @@ class Service {
     });
   }
 
-  partialTransactionUpdate(refCategory, id) {
-    return httpClient.patch(`/api/transaction/${id}`, refCategory, {
+  partialTransactionUpdate(transaction, id) {
+    return httpClient.patch(`/api/transaction/${id}`, transaction, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }
@@ -209,6 +209,12 @@ class Service {
 
   savePlaceLabel(placelabel) {
     return httpClient.post(`/api/placeLabel`, placelabel, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  deletePlaceLabel(placeLabel) {
+    return httpClient.delete(`/api/placeLabel/${placeLabel}`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }

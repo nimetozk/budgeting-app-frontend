@@ -194,12 +194,14 @@ const TaskPage = () => {
   const handleTransactionChange = async (transaction, index) => {
     transactions[index] = transaction;
     const [error, response] = await to(
-      service.partialTransactionUpdate(transaction.refCategory, transaction._id)
+      service.partialTransactionUpdate(transaction, transaction._id)
     );
     if (error) {
       toast.error(errorToString(error));
       return;
     }
+
+    toast.success("Transaction was updated !");
     setTransactions([...transactions]);
   };
 
