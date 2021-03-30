@@ -1,10 +1,6 @@
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 import react, { useState } from "react";
 import { MapModalDialog } from "./MapModalDialog";
-import { to } from "await-to-js";
-import service from "services/service";
-import { toast } from "react-toastify";
-import { errorToString } from "utility";
 
 const MapButtonEdit = (props) => {
   const [open, setOpen] = useState(false);
