@@ -284,7 +284,7 @@ const TaskPage = () => {
           <TransactionsTable
             transactions={transactions}
             onTransactionChange={handleTransactionChange}
-            // currency={currency}
+            bankAccount={bankAccountOption.value}
           ></TransactionsTable>
         )}
       </Container>

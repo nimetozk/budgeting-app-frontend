@@ -38,12 +38,12 @@ export const MapModalDialog = ({ open, placeLabel, onSubmit, onClose }) => {
   };
 
   return (
-    <Modal show={open} size="lg" dialogAs={DraggableModalDialog}>
+    <Modal show={open} size="xl" dialogAs={DraggableModalDialog}>
       <Modal.Header>
         <Modal.Title>{"Location Information"}</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body style={{ padding: "20px 0px 0px " }}>
         <LabelMapping
           placeLabel={placeLabelIn}
           onPlaceLabelChange={handlePlaceLabelChange}
