@@ -51,10 +51,10 @@ const Map = withScriptjs(
                 </InfoWindow>
               )}
               <MarkerWithLabel
-                // onClick={() => {
-                //   console.log("mouse over");
-                //   handleInfoOpen(item, index);
-                // }}
+                onClick={() => {
+                  console.log("mouse over");
+                  handleInfoOpen(item, index);
+                }}
                 google={props.google}
                 labelAnchor={new google.maps.Point(-10, 0)}
                 labelStyle={{
