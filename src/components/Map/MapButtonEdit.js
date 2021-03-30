@@ -1,6 +1,10 @@
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 import react, { useState } from "react";
 import { MapModalDialog } from "./MapModalDialog";
+import { to } from "await-to-js";
+import service from "services/service";
+import { toast } from "react-toastify";
+import { errorToString } from "utility";
 
 const MapButtonEdit = (props) => {
   const [open, setOpen] = useState(false);
@@ -18,40 +22,51 @@ const MapButtonEdit = (props) => {
     setOpen(false);
   };
 
+  const handleDelete = async () => {
+    props.onPlaceLabelChanged(null);
+  };
+
   return (
     <div>
-      <InputGroup className="mb-3">
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          {/*
-          <FormControl
-            readOnly
-            style={{ height: "50px" }}
-            name="lng"
-            value={
-              props.placeLabel ? props.placeLabel.location.coordinates[0] : ""
-            }
-          />
-          */}
-          <FormControl
-            readOnly
-            style={{ height: "50px" }}
-            name="lat"
-            value={props.placeLabel?.name}
-          />
-        </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <FormControl
+          style={{ width: "200px" }}
+          readOnly
+          name="lat"
+          value={props.placeLabel?.name ?? ""}
+        />
 
-        <InputGroup.Append>
-          <Button onClick={handleOpenDialog}>Add</Button>
-          {open && (
-            <MapModalDialog
-              placeLabel={props.placeLabel}
-              open
-              onSubmit={handleSubmit}
-              onClose={handleClose}
-            ></MapModalDialog>
-          )}
-        </InputGroup.Append>
-      </InputGroup>
+        <Button
+          size="sm"
+          style={{ width: "100px", padding: "0px 10px" }}
+          onClick={handleOpenDialog}
+        >
+          Add
+        </Button>
+        {open && (
+          <MapModalDialog
+            placeLabel={props.placeLabel}
+            open
+            onSubmit={handleSubmit}
+            onClose={handleClose}
+          ></MapModalDialog>
+        )}
+        <Button
+          size="sm"
+          style={{ width: "100px" }}
+          onClick={() => {
+            handleDelete(props.transactionId);
+          }}
+        >
+          Delete
+        </Button>
+      </div>
     </div>
   );
 };

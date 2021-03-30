@@ -195,12 +195,6 @@ class Service {
     return true;
   }
 
-  getTransactionByIId(transactionId) {
-    return httpClient.get(`/api/transaction/${"transactionId"}`, {
-      headers: { Authorization: localStorage.getItem("token") },
-    });
-  }
-
   getPlaceLabels() {
     return httpClient.get(`/api/placeLabel`, {
       headers: { Authorization: localStorage.getItem("token") },
@@ -215,6 +209,24 @@ class Service {
 
   deletePlaceLabel(placeLabel) {
     return httpClient.delete(`/api/placeLabel/${placeLabel}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  deleteLocationForTransaction(transactionId) {
+    return httpClient.delete(`/api/transaction/${transactionId}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  getCurrency(bankAccount) {
+    return httpClient.get(`/api/bankaccount/currency/${bankAccount}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+  }
+
+  getLocationTotalAmount() {
+    return httpClient.get(`/api/transaction/groupBy/location`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
   }

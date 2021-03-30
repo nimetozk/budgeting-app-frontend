@@ -62,7 +62,7 @@ export const AsyncMap = React.memo(
         google={props.google}
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyA9jpySEhXNn3BGG0IvDcQFktEJjlquJjk&libraries=places`}
         loadingElement={<div style={{ height: `100%`, width: "auto" }} />}
-        containerElement={<div style={{ height: "400px" }} />}
+        containerElement={<div style={{ height: "500px" }} />}
         mapElement={<div style={{ height: `100%` }} />}
         {...props}
       />

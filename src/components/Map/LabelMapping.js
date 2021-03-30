@@ -143,113 +143,119 @@ const LabelMapping = (props) => {
   };
 
   return (
-    <div>
-      <div style={{ width: "45em" }}>
-        <Row>
-          <Col>
-            <label style={{ fontSize: "20px", padding: "0px" }}>
-              You can select an existing place:
+    <div style={{ width: "1000px" }}>
+      <Row>
+        <Col>
+          <Row style={{ padding: "0px 0px 20px" }}>
+            <label style={{ fontSize: "20px" }}>
+              Drag and drop the pin on the map to choose the location of the new
+              place:
             </label>
-          </Col>
-        </Row>
-        <Row style={{ width: "20em" }}>
-          <Col>
-            <SelectionPlaceLabel
-              externalDatasource={state.externalDataSource}
-              value={state.selectedOption}
-              onPlaceLabelChange={handlePlaceLabelChange}
-            ></SelectionPlaceLabel>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <label style={{ fontSize: "20px", padding: "20px 0px" }}>
-              Or... Drag and drop the pin on the map to choose the location of
-              the new place:
+          </Row>
+
+          <Row>
+            <label style={{ paddingRight: "96px", paddingBottom: "9px" }}>
+              Name:
             </label>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Row>
-              <label style={{ padding: "0px 20px" }}>Name:</label>
 
-              <input
-                style={{ width: "200px" }}
-                name="place"
-                type="text"
-                value={props.placeLabel.name}
-                onChange={handleTextChange}
-              ></input>
-            </Row>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Row style={{ padding: "10px 0px" }}>
-              <label style={{ padding: "0px 20px" }}>Coordinates:</label>
+            <Col>
+              <Row>
+                <input
+                  style={{ width: "200px" }}
+                  name="place"
+                  type="text"
+                  value={props.placeLabel.name}
+                  onChange={handleTextChange}
+                ></input>
+              </Row>
+            </Col>
+          </Row>
 
-              <label style={{ padding: "0px 20px" }}>x:</label>
+          <Row>
+            <label>Coordinates:</label>
 
-              <input
-                style={{ width: "200px" }}
-                name="mapLat"
-                type="text"
-                value={props.placeLabel.location.coordinates[1]}
-                onChange={handleTextChange}
-              ></input>
+            <Col>
+              <Row>
+                <label style={{ padding: "0px 20px" }}>x:</label>
 
-              <label style={{ padding: "0px 20px" }}>y:</label>
+                <input
+                  style={{ width: "200px" }}
+                  name="mapLat"
+                  type="text"
+                  value={props.placeLabel.location.coordinates[1]}
+                  onChange={handleTextChange}
+                ></input>
+              </Row>
+              <Row style={{ paddingTop: "10px" }}>
+                <label style={{ padding: "0px 20px" }}>y:</label>
 
-              <input
-                style={{ width: "200px" }}
-                name="mapLng"
-                type="text"
-                value={props.placeLabel.location.coordinates[0]}
-                onChange={handleTextChange}
-              ></input>
-            </Row>
-          </Col>
-        </Row>
-        <Row
-          style={{
-            padding: "10px 0px",
-            width: "500px",
-          }}
-        >
-          <Col>
-            <Button variant="primary" onClick={handlePlaceSave}>
-              Save Place Label
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              variant="primary"
-              onClick={() => handleDeleteLabel(props.placeLabel.name)}
-            >
-              Delete Place Label
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col style={{ padding: "10px 20px" }}>
+                <input
+                  style={{ width: "200px" }}
+                  name="mapLng"
+                  type="text"
+                  value={props.placeLabel.location.coordinates[0]}
+                  onChange={handleTextChange}
+                ></input>
+              </Row>
+            </Col>
+          </Row>
+
+          <Row style={{ padding: "20px 0px 10px" }}>
+            <label style={{ fontSize: "20px" }}>
+              Or...You can select an existing place:
+            </label>
+          </Row>
+
+          <Row style={{ width: "20em" }}>
+            <Col style={{ padding: "0px" }}>
+              <SelectionPlaceLabel
+                externalDatasource={state.externalDataSource}
+                value={state.selectedOption}
+                onPlaceLabelChange={handlePlaceLabelChange}
+              ></SelectionPlaceLabel>
+            </Col>
+          </Row>
+
+          <Row
+            style={{
+              padding: "50px 0px 17px",
+              width: "500px",
+            }}
+          >
+            <Col style={{ padding: "0px" }}>
+              <Button variant="primary" onClick={handlePlaceSave}>
+                Save Place Label
+              </Button>
+            </Col>
+            <Col style={{ padding: "0px 0px 0px 155px" }}>
+              <Button
+                variant="primary"
+                onClick={() => handleDeleteLabel(props.placeLabel.name)}
+              >
+                Delete Place Label
+              </Button>
+            </Col>
+          </Row>
+          <Row>
             <label>
               Note: You can update the name or the location of an existing
               place!
             </label>
-          </Col>
-        </Row>
-      </div>
-      <div>
-        <AsyncMap
-          zoom={10}
-          center={{ lng: -0.24, lat: 51.52 }}
-          caption={props.placeLabel.name}
-          lat={props.placeLabel.location.coordinates[1]}
-          lng={props.placeLabel.location.coordinates[0]}
-          onLocationChange={handleLocationChange}
-        />
-      </div>
+          </Row>
+        </Col>
+        <Col>
+          <div>
+            <AsyncMap
+              zoom={10}
+              center={{ lng: -0.24, lat: 51.52 }}
+              caption={props.placeLabel.name}
+              lat={props.placeLabel.location.coordinates[1]}
+              lng={props.placeLabel.location.coordinates[0]}
+              onLocationChange={handleLocationChange}
+            />
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };

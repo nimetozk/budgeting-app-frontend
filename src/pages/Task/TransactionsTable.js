@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useEffect, useState } from "react";
 import { Row, Table, Col, Card } from "react-bootstrap";
 import SelectionCategory from "components/Controls/SelectionCategory";
 import moment from "moment";
@@ -7,11 +7,49 @@ import { CardBody } from "reactstrap";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import MapButtonEdit from "components/Map/MapButtonEdit";
+import to from "await-to-js";
+import service from "services/service";
+import { errorToString } from "utility";
 
 moment.locale("en-gb");
 
-const TransactionsTable = ({ transactions, onTransactionChange }) => {
+const TransactionsTable = ({
+  transactions,
+  onTransactionChange,
+  bankAccount,
+}) => {
   const history = useHistory();
+
+  const [currency, setCurrency] = useState([]);
+
+  const getCurrency = async (userBankAccount) => {
+    const [error, response] = await to(service.getCurrency(userBankAccount));
+
+    if (error) {
+      toast.error(errorToString(error));
+      return;
+    }
+
+    switch (response.data.currency) {
+      case "GBP":
+        setCurrency("£");
+        break;
+      case "EUR":
+        setCurrency("€");
+        break;
+      case "USD":
+        setCurrency("$");
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (!bankAccount) return;
+    getCurrency(bankAccount);
+  }, [bankAccount]);
 
   const handleCategoryChange = (option, index) => {
     const transaction = { ...transactions[index] };
@@ -20,12 +58,12 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
   };
 
   const handlePlaceLabelChange = (placeLabel, index) => {
+    console.log("placelabel ", placeLabel);
     const transaction = { ...transactions[index] };
     transaction.refPlaceLabel = placeLabel;
     onTransactionChange(transaction, index);
   };
 
-  console.log("transactions", transactions);
   return (
     <div>
       <Row>
@@ -39,6 +77,7 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
                   <tr>
                     <th>Date</th>
                     <th>Type</th>
+                    <th>Currency</th>
                     <th>Amount</th>
                     <th>External Code</th>
                     <th>Description</th>
@@ -50,15 +89,20 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
                   {transactions.map((transaction, index) => (
                     <tr key={index}>
                       <td hidden>{transaction._id}</td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         {moment(transaction.transactionDate).format(
                           "DD/MM/YYYY"
                         )}
                       </td>
-                      <td>{transaction.transactionType}</td>
+                      <td>{transaction.transactionType.toUpperCase()}</td>
+                      <td style={{ textAlign: "center" }}>{currency}</td>
                       <td>{transaction.transactionAmount}</td>
-                      <td>{transaction.externalCode}</td>
-                      <td>{transaction.description}</td>
+                      <td style={{ textAlign: "center" }}>
+                        {transaction.externalCode}
+                      </td>
+                      <td style={{ width: "250px" }}>
+                        {transaction.description}
+                      </td>
                       <td
                         style={{
                           padding: "10px",
@@ -66,16 +110,15 @@ const TransactionsTable = ({ transactions, onTransactionChange }) => {
                           flexDirection: "column",
                         }}
                       >
-                        <Row>
-                          <MapButtonEdit
-                            onPlaceLabelChanged={(placeLabel) =>
-                              handlePlaceLabelChange(placeLabel, index)
-                            }
-                            placeLabel={transaction.refPlaceLabel}
-                          ></MapButtonEdit>
-                        </Row>
+                        <MapButtonEdit
+                          onPlaceLabelChanged={(placeLabel) =>
+                            handlePlaceLabelChange(placeLabel, index)
+                          }
+                          placeLabel={transaction.refPlaceLabel}
+                          transactionId={transaction._id}
+                        ></MapButtonEdit>
                       </td>
-                      <td style={{ width: "300px" }}>
+                      <td style={{ width: "220px" }}>
                         <SelectionCategory
                           value={{
                             value: transaction.refCategory._id,

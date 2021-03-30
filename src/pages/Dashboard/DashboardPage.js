@@ -11,6 +11,7 @@ import CategoryTransactionTable from "components/Charts/CategoryTransactionTable
 import BudgetBarChart from "components/Charts/BudgetBarChart";
 import { toast } from "react-toastify";
 import { errorToString } from "utility";
+import { DashboardMap } from "components/Map/DashboardMap";
 
 const DashboardPage = () => {
   const [selectedBanks, setSelectedBanks] = useState({
@@ -25,11 +26,12 @@ const DashboardPage = () => {
     moment(new Date()).format("YYYY-MM-DD")
   );
 
+  const [locationTransactionList, setLocationTransactionList] = useState([]);
+
   const [firstDateChecked, setFirstDateCheck] = useState(false);
   const [lastDateChecked, setLastDateCheck] = useState(false);
   const [incomeTransactions, setIncomeTransactions] = useState([]);
   const [expenseTransactions, setExpenseTransactions] = useState([]);
-  //
 
   const getData = (income) => {
     return to(
@@ -41,6 +43,16 @@ const DashboardPage = () => {
       )
     );
   };
+
+  useEffect(async () => {
+    const [error, response] = await to(service.getLocationTotalAmount());
+    if (error) {
+      toast.error(errorToString(error));
+      return;
+    }
+
+    setLocationTransactionList(response.data);
+  }, []);
 
   useEffect(async () => {
     const [incomeError, incomeResponse] = await getData(true);
@@ -251,6 +263,27 @@ const DashboardPage = () => {
                 <Col>
                   <h4>Budget Trend Analysis:</h4>
                   <BudgetBarChart></BudgetBarChart>
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Card>
+            <CardBody>
+              <Row>
+                <Col>
+                  <h4>Dashboard Map:</h4>
+                  <DashboardMap
+                    zoom={13}
+                    center={{
+                      lng: -0.042458496093746856,
+                      lat: 51.554669354403345,
+                    }}
+                    list={locationTransactionList}
+                  ></DashboardMap>
                 </Col>
               </Row>
             </CardBody>
