@@ -199,45 +199,18 @@ const UserDetail = () => {
                   <img
                     alt="..."
                     className="avatar border-gray"
-                    src={require("assets/img/faces/face-3.jpg").default}
+                    src={require("assets/img/faces/face-0.jpg").default}
                   ></img>
-                  <h5 className="title">Mike Andrew</h5>
+                  <h5 className="title">
+                    {formik.values.firstname} {formik.values.lastname}
+                  </h5>
                 </a>
-                <p className="description">michael24</p>
+                <p className="description">{formik.values.email}</p>
               </div>
               <p className="description text-center">
-                "Lamborghini Mercy <br></br>
-                Your chick she so thirsty <br></br>
-                I'm in that two seat Lambo"
+                Account created in 2021! <br></br>
               </p>
             </Card.Body>
-            <hr></hr>
-            <div className="button-container mr-auto ml-auto">
-              <Button
-                className="btn-simple btn-icon"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-                variant="link"
-              >
-                <i className="fab fa-facebook-square"></i>
-              </Button>
-              <Button
-                className="btn-simple btn-icon"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-                variant="link"
-              >
-                <i className="fab fa-twitter"></i>
-              </Button>
-              <Button
-                className="btn-simple btn-icon"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-                variant="link"
-              >
-                <i className="fab fa-google-plus-square"></i>
-              </Button>
-            </div>
           </Card>
         </Col>
       </Row>
