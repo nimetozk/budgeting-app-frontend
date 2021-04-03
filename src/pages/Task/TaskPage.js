@@ -139,7 +139,10 @@ const TaskPage = () => {
   };
 
   const uploadFile = {
-    action: "http://localhost:4000/api/transaction/upload/" + entity._id,
+    // action: "http://localhost:4000/api/transaction/upload/" + entity._id,
+    action:
+      "https://nimet-budget-api.herokuapp.com/api/transaction/upload/" +
+      entity._id,
     type: "drag",
 
     headers: {
