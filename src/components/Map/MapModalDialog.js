@@ -21,7 +21,10 @@ export const MapModalDialog = ({ open, placeLabel, onSubmit, onClose }) => {
   const [placeLabelIn, setPlaceLabelIn] = useState(
     placeLabel ?? {
       name: "",
-      location: { type: "Point", coordinates: [52.04, -0.21] },
+      location: {
+        type: "Point",
+        coordinates: [-0.12210937499999686, 51.509777971206304],
+      },
     }
   );
 
