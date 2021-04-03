@@ -13,7 +13,6 @@ const TaskListPage = () => {
 
   const getData = async () => {
     const [error, response] = await to(service.getTaskList());
-    console.log(response);
     setTaskList(response.data);
   };
 

@@ -58,7 +58,6 @@ const TransactionsTable = ({
   };
 
   const handlePlaceLabelChange = (placeLabel, index) => {
-    console.log("placelabel ", placeLabel);
     const transaction = { ...transactions[index] };
     transaction.refPlaceLabel = placeLabel;
     onTransactionChange(transaction, index);

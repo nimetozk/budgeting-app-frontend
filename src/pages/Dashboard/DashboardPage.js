@@ -105,14 +105,11 @@ const DashboardPage = () => {
   };
 
   const handleDateCheck = (event) => {
-    console.log(event.target.name, event.target.checked);
     switch (event.target.name) {
       case "firstDateCheck":
-        console.log("first check");
         setFirstDateCheck(event.target.checked);
         break;
       case "lastDateCheck":
-        console.log("last check");
         setLastDateCheck(event.target.checked);
         break;
 

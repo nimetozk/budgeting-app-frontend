@@ -52,7 +52,6 @@ const Map = withScriptjs(
               )}
               <MarkerWithLabel
                 onClick={() => {
-                  console.log("mouse over");
                   handleInfoOpen(item, index);
                 }}
                 google={props.google}
