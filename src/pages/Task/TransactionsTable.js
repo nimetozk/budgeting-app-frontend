@@ -4,7 +4,6 @@ import SelectionCategory from "components/Controls/SelectionCategory";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { CardBody } from "reactstrap";
-import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import MapButtonEdit from "components/Map/MapButtonEdit";
 import to from "await-to-js";

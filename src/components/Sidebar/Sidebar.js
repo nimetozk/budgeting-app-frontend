@@ -17,10 +17,7 @@
 */
 import React, { Component } from "react";
 import { useLocation, NavLink } from "react-router-dom";
-
 import { Nav } from "react-bootstrap";
-
-import logo from "assets/img/reactlogo.png";
 import service from "services/service";
 
 function Sidebar({ color, image, routes }) {

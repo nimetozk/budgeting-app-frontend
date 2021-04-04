@@ -34,7 +34,7 @@ export const MapModalDialog = ({ open, placeLabel, onSubmit, onClose }) => {
 
   const handleOk = () => {
     if (!placeLabelIn || !placeLabelIn.name) {
-      toast.error("invalid place label !");
+      toast.error("Invalid place label !");
       return;
     }
     onSubmit(placeLabelIn);

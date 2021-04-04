@@ -1,5 +1,4 @@
 import axios from "axios";
-import { to } from "await-to-js";
 
 const httpClient = axios.create({
   baseURL: "https://nimet-budget-api.herokuapp.com",

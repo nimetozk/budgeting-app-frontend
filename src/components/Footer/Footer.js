@@ -26,12 +26,10 @@ class Footer extends Component {
           <nav>
             <ul className="footer-menu">
               <li>
-                <a href="dashboard" onClick={(e) => e.preventDefault()}>
-                  Home
-                </a>
+                <a href="/dashboard">Home</a>
               </li>
               <li>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                <a href="https://github.com/nimetozk/budgeting-app-frontend">
                   GitHub
                 </a>
               </li>

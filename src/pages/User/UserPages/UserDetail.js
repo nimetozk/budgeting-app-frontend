@@ -52,7 +52,7 @@ const UserDetail = () => {
 
         setEntity(response.data);
 
-        toast.success(" Your details are successfully updated! ", {
+        toast.success("Your details are successfully updated !", {
           delay: 100,
         });
       });

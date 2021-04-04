@@ -1,7 +1,6 @@
 import react from "react";
 import { Redirect, Route } from "react-router-dom";
 import service from "../services/service";
-import AdminLayout from "../layouts/Admin";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const ok = service.IsAuthenticated();

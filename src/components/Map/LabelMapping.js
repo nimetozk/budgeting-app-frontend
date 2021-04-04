@@ -1,14 +1,6 @@
 import react, { useEffect, useState } from "react";
 import SelectionPlaceLabel from "../Controls/SelectPlaceLabel";
-import {
-  Button,
-  Row,
-  Col,
-  Card,
-  FormGroup,
-  Form,
-  FormControl,
-} from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import service from "services/service";
 import { toast } from "react-toastify";
 import { errorToString } from "utility";

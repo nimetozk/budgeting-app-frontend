@@ -1,8 +1,4 @@
-import SelectBank from "components/Controls/SelectionBank";
-import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import service from "../../../services/service";
-import { to } from "await-to-js";
+import React from "react";
 import UserDetail from "./UserDetail";
 import UserBankAccount from "./UserBankAccount";
 

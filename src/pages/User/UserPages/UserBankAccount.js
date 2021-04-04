@@ -80,7 +80,7 @@ const UserBankAccount = () => {
 
       confirm({
         title: "Save Bank Account",
-        description: "Are you sure to save bank account ?",
+        description: "Are you sure that you want to save bank account ?",
       }).then(async () => {
         const [error, response] = await to(service.insertBankAccount(entity));
         if (error) {
@@ -122,7 +122,7 @@ const UserBankAccount = () => {
   const handleDelete = async (bankAccountId) => {
     confirm({
       title: "DELETE",
-      description: "Are you sure to delete the item ?",
+      description: "Are you sure that you want to delete the item ?",
     }).then(() => {
       service
         .getDeleteBankAccountById(bankAccountId)
@@ -133,7 +133,7 @@ const UserBankAccount = () => {
           );
           tempBankAccountList.splice(index, 1);
           setBankAccountList(tempBankAccountList);
-          toast.success("Account is deleted successfully", { delay: 3000 });
+          toast.success("Account is deleted successfully!", { delay: 3000 });
         })
         .catch((error) => {
           toast.error(errorToString(error));

@@ -2,7 +2,6 @@ import react, { useState, useEffect } from "react";
 import Select from "react-select";
 
 const SelectionYear = ({ value, onYearChange }) => {
-  //const { value, onCategoryChange } = props;
   const [options, setOptions] = useState([]);
 
   useEffect(async () => {

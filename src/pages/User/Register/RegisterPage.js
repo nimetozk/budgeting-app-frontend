@@ -9,7 +9,6 @@ import { to } from "await-to-js";
 import registerImage from "./register.jpg";
 import logo from "./logo.png";
 import "./register.css";
-import validator from "validator";
 
 import { toast } from "react-toastify";
 import { errorToString } from "utility";

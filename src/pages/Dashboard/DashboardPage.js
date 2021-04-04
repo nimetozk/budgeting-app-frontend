@@ -272,7 +272,7 @@ const DashboardPage = () => {
             <CardBody>
               <Row>
                 <Col>
-                  <h4>Dashboard Map:</h4>
+                  <h4>Your Total Spending on a Specific Location:</h4>
                   <DashboardMap
                     zoom={13}
                     center={{

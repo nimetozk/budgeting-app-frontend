@@ -52,13 +52,13 @@ const BankPage = () => {
         if (formStatus === "new") {
           const [error, response] = await to(service.insertBank(entity));
           if (error) {
-            alert("errror" + error.message ?? "");
+            alert("error" + error.message ?? "");
             return;
           }
         } else {
           const [error, response] = await to(service.updateBank(entity));
           if (error) {
-            alert("errror" + error.message ?? "");
+            alert("error" + error.message ?? "");
             return;
           }
         }

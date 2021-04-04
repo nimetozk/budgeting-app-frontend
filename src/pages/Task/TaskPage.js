@@ -158,7 +158,7 @@ const TaskPage = () => {
     onSuccess(file) {
       getTask(entity._id);
       getTransactions(entity._id);
-      toast.success(" Your file is uploaded successfully Scroll down ! ", {
+      toast.success(" Your file is uploaded successfully, scroll down ! ", {
         delay: 0,
       });
       console.log("onSuccess", file);
@@ -204,7 +204,7 @@ const TaskPage = () => {
       return;
     }
 
-    toast.success("Transaction was updated !");
+    toast.success("Transaction is updated !");
     setTransactions([...transactions]);
   };
 
