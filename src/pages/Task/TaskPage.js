@@ -51,7 +51,7 @@ const TaskPage = () => {
 
     setBankAccountOption({
       value: response.data.refBankAccount._id,
-      label: `${response.data.refBankAccount.sortCode} ${response.data.refBankAccount.accountNo}`,
+      label: ` ${response.data.refBankAccount.sortCode} ${response.data.refBankAccount.accountNo}`,
     });
 
     getTransactions(response.data._id);
@@ -88,7 +88,7 @@ const TaskPage = () => {
       setEntity(response.data);
     }
 
-    toast.success("Task was saved successfuly !");
+    toast.success("Task is saved successfuly !");
   };
 
   const handleSave = async () => {

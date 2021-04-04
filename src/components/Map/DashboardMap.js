@@ -73,7 +73,7 @@ const Map = withScriptjs(
                     <span>
                       <strong>{item.label}</strong>
                       <div>
-                        {item.currency}
+                        -{item.currency}
                         {item.totalAmount}
                       </div>
                     </span>

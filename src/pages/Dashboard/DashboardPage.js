@@ -276,8 +276,8 @@ const DashboardPage = () => {
                   <DashboardMap
                     zoom={13}
                     center={{
-                      lng: -0.042458496093746856,
-                      lat: 51.554669354403345,
+                      lng: -0.14133544921874686,
+                      lat: 51.49524557846912,
                     }}
                     list={locationTransactionList}
                   ></DashboardMap>

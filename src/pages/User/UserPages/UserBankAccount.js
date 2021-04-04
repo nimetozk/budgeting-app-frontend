@@ -80,7 +80,7 @@ const UserBankAccount = () => {
 
       confirm({
         title: "Save Bank Account",
-        description: "Are you sure that you want to save bank account ?",
+        description: "Are you sure that you want to save the bank account ?",
       }).then(async () => {
         const [error, response] = await to(service.insertBankAccount(entity));
         if (error) {
