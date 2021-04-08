@@ -31,7 +31,7 @@ const TaskUpload = ({ entity, OnTextChange, uploadFile }) => {
                       <Form.Control
                         name="uploadDate"
                         value={entity.uploadDate}
-                        placeholder="01/01/2021"
+                        placeholder={new Date().toUTCString()}
                         type="text"
                         readOnly
                         onChange={OnTextChange}
