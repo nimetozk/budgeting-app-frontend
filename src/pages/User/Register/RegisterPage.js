@@ -37,18 +37,22 @@ const RegisterPage = () => {
     },
 
     validationSchema: yup.object().shape({
-      firstname: yup.string().required("Required"),
-      lastname: yup.string().required("Required"),
-      email: yup.string().required("Required").email(),
-      phoneNumber: yup.string().required("Required").max(11).min(11),
+      firstname: yup.string().required("This field is required!"),
+      lastname: yup.string().required("This field is required!"),
+      email: yup.string().required("This field is required!").email(),
+      phoneNumber: yup
+        .string()
+        .required("This field is required!")
+        .min(11)
+        .max(13),
       password: yup
         .string()
-        .required("Required")
-        .min(8, "Password must contain more then 8 characters!"),
+        .required("This field is required!")
+        .min(8, "Password must contain at least 8 characters!"),
       confirmPassword: yup
         .string()
-        .required("Required")
-        .when("password", {
+        .required("This field is required!")
+        .when("This field is required!", {
           is: (val) => true, //(val && val.length > 0 ? true : false),
           then: yup
             .string()

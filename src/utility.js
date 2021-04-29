@@ -18,6 +18,7 @@ export const errorToString = (error) => {
   return message;
 };
 
+//This list is taken from :  https://gist.github.com/keeguon/2310008
 export const countryList = [
   { name: "Afghanistan", code: "AF" },
   { name: "Åland Islands", code: "AX" },

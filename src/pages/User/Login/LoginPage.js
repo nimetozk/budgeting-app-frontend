@@ -20,8 +20,8 @@ const LoginPage = () => {
     },
 
     validationSchema: yup.object().shape({
-      email: yup.string().required("Required").email(),
-      password: yup.string().required("Required"),
+      email: yup.string().required("This field is required!").email(),
+      password: yup.string().required("This field is required!"),
     }),
 
     enableReinitialize: true,
@@ -124,6 +124,11 @@ const LoginPage = () => {
               >
                 Sign In
               </button>
+            </div>
+            <div className="frg-pass">
+              <a href="https://github.com/nimetozk/budgeting-app-frontend">
+                Forget Password?
+              </a>
             </div>
           </form>
         </div>

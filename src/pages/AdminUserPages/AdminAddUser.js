@@ -54,7 +54,7 @@ const AdminUserPage = () => {
       firstname: yup.string().required("Required"),
       lastname: yup.string().required("Required"),
       email: yup.string().required("Required").email(),
-      phoneNumber: yup.string().required("Required").max(11).min(11),
+      phoneNumber: yup.string().required("Required").max(13).min(11),
       password: yup.string().required("Required"),
       userRole: yup.string(),
     }),

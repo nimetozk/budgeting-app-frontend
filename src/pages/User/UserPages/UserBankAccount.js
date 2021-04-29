@@ -133,7 +133,7 @@ const UserBankAccount = () => {
           );
           tempBankAccountList.splice(index, 1);
           setBankAccountList(tempBankAccountList);
-          toast.success("Account is deleted successfully!", { delay: 3000 });
+          toast.success("Account is deleted successfully!");
         })
         .catch((error) => {
           toast.error(errorToString(error));
