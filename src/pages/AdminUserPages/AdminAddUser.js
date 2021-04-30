@@ -66,7 +66,7 @@ const AdminUserPage = () => {
 
       confirm({
         title: "Add User",
-        description: "Are you sure you want to add a new user?",
+        description: "Are you sure you want to create the user account?",
       }).then(async () => {
         if (formStatus === "edit") {
           const [error, response] = await to(service.updateUser(user));

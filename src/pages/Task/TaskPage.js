@@ -168,6 +168,9 @@ const TaskPage = () => {
     },
     onError(err) {
       console.log("onError", err);
+      toast.error("An error occured, check the format of the file ! ", {
+        delay: 0,
+      });
     },
     style: {
       display: "inline-block",

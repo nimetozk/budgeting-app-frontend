@@ -36,7 +36,7 @@ const UserListPage = () => {
   const handleUserDelete = (userId) => {
     confirm({
       title: "DELETE",
-      description: "Are you sure to delete the item ?",
+      description: "Are you sure to delete the user account ?",
     }).then(() => {
       service
         .getDeleteUserAccountById(userId)

@@ -94,7 +94,7 @@ const LabelMapping = (props) => {
       externalDataSource: response.data,
     });
 
-    toast.success("Location is saved!");
+    toast.success("Place label is saved!");
   };
 
   const handleLocationChange = (lat, lng) => {
@@ -131,7 +131,7 @@ const LabelMapping = (props) => {
       name: "",
     });
 
-    toast.success("Label is deleted!");
+    toast.success("Place label is deleted!");
   };
 
   return (
