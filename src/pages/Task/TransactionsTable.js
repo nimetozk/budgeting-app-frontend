@@ -87,18 +87,24 @@ const TransactionsTable = ({
                   {transactions.map((transaction, index) => (
                     <tr key={index}>
                       <td hidden>{transaction._id}</td>
-                      <td style={{ textAlign: "center" }}>
+                      <td width="10%" style={{ textAlign: "center" }}>
                         {moment(transaction.transactionDate).format(
                           "DD/MM/YYYY"
                         )}
                       </td>
-                      <td>{transaction.transactionType.toUpperCase()}</td>
-                      <td style={{ textAlign: "center" }}>{currency}</td>
-                      <td>{transaction.transactionAmount}</td>
-                      <td style={{ textAlign: "center" }}>
+                      <td width="8%" style={{ textAlign: "center" }}>
+                        {transaction.transactionType.toUpperCase()}
+                      </td>
+                      <td width="5%" style={{ textAlign: "center" }}>
+                        {currency}
+                      </td>
+                      <td width="8%" style={{ textAlign: "center" }}>
+                        {transaction.transactionAmount}
+                      </td>
+                      <td width="5%" style={{ textAlign: "center" }}>
                         {transaction.externalCode}
                       </td>
-                      <td style={{ width: "250px" }}>
+                      <td width="10%" style={{ width: "250px" }}>
                         {transaction.description}
                       </td>
                       <td
@@ -116,7 +122,7 @@ const TransactionsTable = ({
                           transactionId={transaction._id}
                         ></MapButtonEdit>
                       </td>
-                      <td style={{ width: "220px" }}>
+                      <td width="20%">
                         <SelectionCategory
                           value={{
                             value: transaction.refCategory._id,
