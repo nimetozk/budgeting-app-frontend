@@ -1,5 +1,11 @@
+/**
+ * The part of the code renders to 'Login' page.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import React, { useState } from "react";
-import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import serviceProvider from "../../../services/service";
 import { to } from "await-to-js";
@@ -10,7 +16,6 @@ import { toast } from "react-toastify";
 import { errorToString } from "utility";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Carousel } from "react-bootstrap";
 const LoginPage = () => {
   const history = useHistory();
   const formik = useFormik({

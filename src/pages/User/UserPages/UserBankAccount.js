@@ -1,3 +1,10 @@
+/**
+ * The part of the code renders the 'User Bank Accounts' tab on the 'User Profile' page.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import { useConfirmation } from "components/Dialog/dialog-provider";
 import SelectBank from "components/Controls/SelectionBank";
 import React, { useState, useEffect } from "react";
@@ -144,7 +151,7 @@ const UserBankAccount = () => {
 
   return (
     <Container fluid>
-      <Row style={{ width: "1845px" }}>
+      <Row style={{ width: "1380px" }}>
         <Col md="8">
           <Card>
             <Card.Body>

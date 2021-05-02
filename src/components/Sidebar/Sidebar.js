@@ -16,7 +16,14 @@
 
 */
 
-//This part of the template has been modified to suit the needs of the application.
+/**
+ *
+ * This part of the template has been modified to aid the needs of the application.
+ *
+ * It renders the navigation bar.
+ * The bar is displayed on each page.
+ */
+
 import React, { Component } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";

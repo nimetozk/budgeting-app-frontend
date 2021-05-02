@@ -1,3 +1,10 @@
+/**
+ * This is where user list is displayed to the admin.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import react, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Table, Button, Card, Row, Col } from "react-bootstrap";

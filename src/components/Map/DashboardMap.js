@@ -1,3 +1,7 @@
+/**
+ * A component that is used to display the map on the 'Dashboard page'.
+ */
+
 import React, { useEffect, useState } from "react";
 
 import {

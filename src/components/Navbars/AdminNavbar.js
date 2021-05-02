@@ -15,6 +15,15 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+/**
+ *
+ * This part of the template has been modified to aid the needs of the application.
+ *
+ * It renders the bar that displays the page information and provides the 'logout' button.
+ * The bar is displayed on each page.
+ */
+
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";

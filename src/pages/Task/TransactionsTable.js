@@ -1,3 +1,11 @@
+/**
+ * The part of the code provides a table that contains list of transactions which are retrieved when a bank statement is uploaded.
+ * Table is rendered on 'Tasks' page.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import react, { useEffect, useState } from "react";
 import { Row, Table, Col, Card } from "react-bootstrap";
 import SelectionCategory from "components/Controls/SelectionCategory";
@@ -122,7 +130,7 @@ const TransactionsTable = ({
                           transactionId={transaction._id}
                         ></MapButtonEdit>
                       </td>
-                      <td width="20%">
+                      <td width="25%">
                         <SelectionCategory
                           value={{
                             value: transaction.refCategory._id,

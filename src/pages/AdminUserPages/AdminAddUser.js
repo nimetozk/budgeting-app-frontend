@@ -1,3 +1,10 @@
+/**
+ * This is where admin add user page is rendered.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ *  https://reactjs.org/
+ */
+
 import react, { useEffect, useState } from "react";
 import service from "services/service";
 import { useHistory, useParams } from "react-router-dom";

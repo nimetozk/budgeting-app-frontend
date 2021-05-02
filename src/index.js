@@ -16,7 +16,9 @@
 
 */
 
-//This part of the template has been modified to suit the needs of the application.
+/**
+ * This part of the template has been modified to aid the needs of the application.
+ */
 import React from "react";
 import ReactDOM from "react-dom";
 

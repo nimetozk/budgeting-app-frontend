@@ -1,3 +1,8 @@
+/**
+ * A component rendered on the 'Transactions' table to enable
+ * users to add or delete the location information.
+ */
+
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 import react, { useState } from "react";
 import { MapModalDialog } from "./MapModalDialog";

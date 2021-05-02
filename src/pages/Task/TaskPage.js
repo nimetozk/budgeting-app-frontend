@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
+/**
+ * This page renders the 'Task' page where the list of tasks, option for uploading the tasks and table of transactions are displayed.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
 
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SelectionBankAccount from "components/Controls/SelectionBankAccounts";
 import SelectionBank from "components/Controls/SelectionBank";

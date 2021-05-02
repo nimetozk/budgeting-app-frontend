@@ -1,3 +1,10 @@
+/**
+ * The part of the code renders the 'User Details' tab on the 'User Profile' page.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import react, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { useConfirmation } from "components/Dialog/dialog-provider";

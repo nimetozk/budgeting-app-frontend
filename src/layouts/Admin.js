@@ -15,6 +15,14 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+/**
+ *
+ * This part of the template has been modified to aid the needs of the application.
+ *
+ * It provides the page paths that are displayed on the side bar.
+ */
+
 import React from "react";
 import { useLocation, Switch, Redirect } from "react-router-dom";
 

@@ -1,3 +1,8 @@
+/**
+  A table chart created to give users insight into their budgets. 
+  The component is used on the dashboard page.
+*/
+
 import react from "react";
 import { Table } from "react-bootstrap";
 

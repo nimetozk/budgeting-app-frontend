@@ -1,3 +1,10 @@
+/**
+ * To understand the implementation of the map,
+ * I have used the documentation on: https://tomchentw.github.io/react-google-maps/
+ *
+ * It also handles the save/delete operations of the place label
+ */
+
 import react, { useEffect, useState } from "react";
 import SelectionPlaceLabel from "../Controls/SelectPlaceLabel";
 import { Button, Row, Col } from "react-bootstrap";

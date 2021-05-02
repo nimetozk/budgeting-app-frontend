@@ -1,3 +1,7 @@
+/**
+ * This part contains some functions that have been called on several places throughout the project.
+ */
+
 export const errorToString = (error) => {
   let message = "";
 

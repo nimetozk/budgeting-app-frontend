@@ -1,5 +1,14 @@
-import * as React from "react";
+/**
+ *
+ * To understand the implementation and usage of the useContect and useRef,
+ * I have followed the documentation on:
+ * https://reactjs.org/docs/context.html
+ *
+ * and I have taken the course on:
+ * https://scrimba.com/learn/reacthooks
+ */
 
+import * as React from "react";
 import { ConfirmationDialog } from "./confirmation-dialog";
 
 /*

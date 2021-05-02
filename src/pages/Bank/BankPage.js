@@ -1,3 +1,10 @@
+/**
+ * This is the page that the bank list with add/edit options are displayed.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import react, { useEffect, useState } from "react";
 import { Row, Container, Card, Col, Form, Button } from "react-bootstrap";
 import service from "services/service";

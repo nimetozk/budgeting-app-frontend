@@ -1,3 +1,7 @@
+/**
+ * To understand the implementation of the map displayed in the 'Dashboard' page,
+ * I have used the documentation on: https://tomchentw.github.io/react-google-maps/
+ */
 import React, { useState } from "react";
 
 import {
@@ -12,11 +16,8 @@ import MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithL
 export const Map = withScriptjs(
   withGoogleMap((props) => {
     /**
-     * When the marker is dragged you get the lat and long using the functions available from event object.
-     * Use geocode to get the address, city, area and state from the lat and lng positions.
-     * And then set those values in the state.
-     *
-     * @param event
+     * When the marker is dragged you get the lat and long using the functions included in event object.
+     * I have used geocode to get the lat and lng positions, then I have used a state to set those values.
      */
     const onMarkerDragEnd = (event) => {
       const newLat = event.latLng.lat();

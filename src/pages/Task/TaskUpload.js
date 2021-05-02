@@ -1,3 +1,11 @@
+/**
+ * The part of the code provides the form for the users to upload their bank statements.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ *
+ */
+
 import react from "react";
 import { CardHeader } from "reactstrap";
 import Upload from "rc-upload";

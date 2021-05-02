@@ -1,3 +1,8 @@
+/**
+ *
+ * This are the end-to-end tests created with Codecept.js testing framework.
+ */
+
 Feature("Register Test");
 
 Scenario("test register", ({ I }) => {

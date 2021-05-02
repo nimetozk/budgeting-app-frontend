@@ -1,8 +1,14 @@
+/**
+ * This is the Dashboard page that charts and tables are displayed to give user's the insight into bank statement.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import SelectBank from "components/Controls/SelectionBank";
 import react, { useState, useEffect } from "react";
 import { Button, Row, Form, Col, Card } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
-
 import moment from "moment";
 import service from "services/service";
 import to from "await-to-js";

@@ -1,3 +1,10 @@
+/**
+ * This is the table created to display the list of baks to the admin.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import react, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Table, Button, Row, Col, Card } from "react-bootstrap";

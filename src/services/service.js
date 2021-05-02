@@ -1,5 +1,10 @@
 import axios from "axios";
 
+/**
+ * Creates a promised-based http client to handle http methods (get, post, delete etc.)
+ * These methods corresponds to CRUD (read, create, delete etc.) operations.
+ */
+
 const httpClient = axios.create({
   baseURL: "https://nimet-budget-api.herokuapp.com",
   // baseURL: "http://localhost:4000",

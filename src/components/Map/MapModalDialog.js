@@ -1,3 +1,7 @@
+/**
+ * A dialog that displays the map and releted components for the users to choose a transaction location label.
+ */
+
 import { Button } from "react-bootstrap";
 import React, { useState } from "react";
 import LabelMapping from "./LabelMapping";

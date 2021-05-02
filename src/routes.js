@@ -16,7 +16,12 @@
 
 */
 
-//This part of the template has been modified to suit the needs of the application.
+/**
+ *
+ * This part of the template has been modified to aid the needs of the application.
+ *
+ * I have implemented the routers by defining the page paths and components created on 'Pages' folder.
+ */
 import Dashboard from "pages/Dashboard/DashboardPage";
 import UserProfile from "./pages/User/UserPages/UserProfile";
 import TaskListPage from "pages/Task/TasksListPage";

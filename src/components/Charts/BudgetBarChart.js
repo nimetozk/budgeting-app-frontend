@@ -1,3 +1,11 @@
+/**
+  A bar chart created to give users insight into their budgets. 
+  The component is used on the dashboard page.
+
+  The following documentation has been studied to understand the library.
+  https://react-google-charts.com/
+*/
+
 import react, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { to } from "await-to-js";

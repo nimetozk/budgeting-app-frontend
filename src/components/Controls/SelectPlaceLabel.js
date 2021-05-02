@@ -1,3 +1,11 @@
+/**
+  A component created using the react-select.js library
+  It is implemented to provde input control on the user place label selections.
+
+  To understand the implementation of the library,I have used the 
+  documentation provided on: https://react-select.com/home 
+*/
+
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import service from "../../services/service";

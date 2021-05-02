@@ -1,3 +1,10 @@
+/**
+ * The part of the code provides a table that contains list of tasks. Table is rendered on 'Tasks' page.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import react, { useEffect, useState } from "react";
 import service from "services/service";
 import { to } from "await-to-js";

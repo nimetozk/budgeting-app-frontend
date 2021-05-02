@@ -1,3 +1,10 @@
+/**
+ * The part of the code renders to 'User Profile' page.
+ *
+ * Throughout the implementation, I have used react documentation to understand different types of React hooks.
+ * https://reactjs.org/
+ */
+
 import React from "react";
 import UserDetail from "./UserDetail";
 import UserBankAccount from "./UserBankAccount";

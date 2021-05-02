@@ -1,3 +1,9 @@
+/**
+ * This is the pop-up window displayed to the users.
+ * The information to be displayed is provided with 'dialog-provided.js'
+ *
+ */
+
 import { Modal, Button } from "react-bootstrap";
 import React from "react";
 import "./confirmation-dialog.css";

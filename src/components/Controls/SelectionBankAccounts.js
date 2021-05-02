@@ -1,3 +1,11 @@
+/**
+  A component created using the react-select.js library
+  It is implemented to provde input control on the user bank account selections 
+  
+  To understand the implementation of the library,I have used the 
+  documentation provided on: https://react-select.com/home 
+*/
+
 import react, { useState, useEffect } from "react";
 import service from "../../services/service";
 import Select from "react-select";
