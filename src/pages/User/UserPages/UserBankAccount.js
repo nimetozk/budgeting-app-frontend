@@ -151,8 +151,8 @@ const UserBankAccount = () => {
 
   return (
     <Container fluid>
-      <Row style={{ width: "1380px" }}>
-        <Col md="8">
+      <Row>
+        <Col>
           <Card>
             <Card.Body>
               <Form>
