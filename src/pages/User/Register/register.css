@@ -86,7 +86,8 @@ body {
 }
 
 .reg-button {
-  margin-top: 44px;
+  width: 502px;
+  padding-left: 18px;
 }
 
 .top-bar {

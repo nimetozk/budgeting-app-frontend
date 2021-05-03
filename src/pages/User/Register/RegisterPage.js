@@ -216,16 +216,16 @@ const RegisterPage = () => {
                       </label>
                     )}
                 </div>
-                <div className="reg-button">
-                  <button
-                    className="btn btn-black"
-                    type="button"
-                    onClick={formik.handleSubmit}
-                  >
-                    Register
-                  </button>
-                </div>
               </div>
+            </div>
+            <div className="reg-button">
+              <button
+                className="btn btn-black"
+                type="button"
+                onClick={formik.handleSubmit}
+              >
+                Register
+              </button>
             </div>
           </form>
         </div>
