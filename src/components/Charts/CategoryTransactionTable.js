@@ -24,7 +24,7 @@ const CategoryTransactionTable = (props) => {
             <tr key={index}>
               <td>{groupItem.category}</td>
               <td>{groupItem.count}</td>
-              <td>{groupItem.totalAmount}</td>
+              <td>£{groupItem.totalAmount}</td>
             </tr>
           ))}
       </tbody>
